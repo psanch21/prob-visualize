@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 
-def plot_image(image, ax=None):
+def plot_image(image, ax=None, title=''):
     h, w, c = image.shape
     isgray = False
     ratio = h / w
@@ -25,7 +25,7 @@ def plot_image(image, ax=None):
     ax.set_xticklabels([])
     ax.set_aspect('equal')
     plt.axis('off')
-    # ax.set_title(title)
+    ax.set_title(title)
     plt.subplots_adjust(wspace=0, hspace=0)
     plt.tight_layout()
     return f, ax

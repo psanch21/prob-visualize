@@ -1,2 +1,2 @@
-import probvis.distributions.exponential
-import probvis.distributions.categorical
+# import probvis.distributions.exponential
+# import probvis.distributions.categorical
