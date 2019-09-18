@@ -31,7 +31,7 @@ def plot_image(image, ax=None, title=''):
     return f, ax
 
 
-def merge_images(images, size, rows, cols, direction=0, dtype=float):
+def merge_images(images, rows, cols, direction=0, dtype=float):
     """
 
     :param images:
@@ -42,8 +42,9 @@ def merge_images(images, size, rows, cols, direction=0, dtype=float):
     :param dtype:
     :return:
     """
-    w, h = size
-    img = np.zeros([h * rows, w * cols, 3])
+    n,w, h, c = images.shape
+    assert c <=3, 'Error in number of channels'
+    img = np.zeros([h * rows, w * cols, c])
     n = 0
     if direction == 0:
         for j in range(cols):
