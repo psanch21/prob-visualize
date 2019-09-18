@@ -1,10 +1,11 @@
-import matplotlib.pyplot as plt
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
+
+
 def plot_params(params, save_dir, name, title='', close=None):
-
-
-    f = plt.figure(figsize=(15,10))
+    f = plt.figure(figsize=(15, 10))
     x = np.arange(len(params))
     ax = plt.subplot(1, 1, 1)
     # ax.plot(params)

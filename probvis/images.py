@@ -1,6 +1,7 @@
+import os
+
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 
 
 def plot_image(image, ax=None, title=''):
@@ -35,15 +36,14 @@ def merge_images(images, rows, cols, direction=0, dtype=float):
     """
 
     :param images:
-    :param size:
     :param rows:
     :param cols:
     :param direction: 0 means stack in rows, 1 means stacks in cols
     :param dtype:
     :return:
     """
-    n,w, h, c = images.shape
-    assert c <=3, 'Error in number of channels'
+    n, w, h, c = images.shape
+    assert c <= 3, 'Error in number of channels'
     img = np.zeros([h * rows, w * cols, c])
     n = 0
     if direction == 0:
@@ -78,12 +78,11 @@ def extend_image_h(image, pos, n, color=(255, 255, 255)):
     return image_new
 
 
-def plot_n_image_grid(save_dir, x_data,n_col, n_row, n_bs, name, direction=1):
-
+def plot_n_image_grid(save_dir, x_data, n_col, n_row, n_bs, name, direction=1):
     h, w = x_data.shape[1:3]
-    n_imgs = n_col*n_row
+    n_imgs = n_col * n_row
     for i in range(n_bs):
         x = x_data[i * n_imgs:(i + 1) * n_imgs]
         tmp_img = merge_images(x, [h, w], n_row, n_col, direction=direction, dtype=int)
         f, _ = plot_image(tmp_img)
-        f.savefig(os.path.join(save_dir, '{}_grid_{}.png'.format(name,i)))
+        f.savefig(os.path.join(save_dir, '{}_grid_{}.png'.format(name, i)))
