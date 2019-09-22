@@ -2,6 +2,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 
 def plot_image(image, ax=None, title=''):
@@ -86,3 +87,34 @@ def plot_n_image_grid(save_dir, x_data, n_col, n_row, n_bs, name, direction=1):
         tmp_img = merge_images(x, [h, w], n_row, n_col, direction=direction, dtype=int)
         f, _ = plot_image(tmp_img)
         f.savefig(os.path.join(save_dir, '{}_grid_{}.png'.format(name, i)))
+
+
+
+
+def scatter_images(x_data, y_data, images, ax):
+    arg_list = np.argsort(y_data)
+    zoom = 1 if images.shape[1] == 32 else 0.5
+    if images.shape[-1] == 1:
+        images = np.tile(images, [1,1,1,3])
+    if (images.shape[0] < 30):
+        for j in arg_list:
+            im = OffsetImage(images[j],  zoom=zoom)
+            ab = AnnotationBbox(im, [x_data[j], y_data[j]], frameon=False)
+            ax.add_artist(ab)
+        return
+
+
+
+    diff_ll = y_data.max() - y_data.min()
+    step = diff_ll/30
+
+    ll_sorted = np.sort(y_data)
+    for k in range(28):
+        tmp = np.sum(ll_sorted < (y_data.min() + step*(k+1))) -1
+        j = arg_list[tmp]
+        im = OffsetImage(images[j], zoom=zoom)
+        ab = AnnotationBbox(im, [x_data[j], y_data[j]], frameon=False)
+        ax.add_artist(ab)
+
+
+

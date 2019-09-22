@@ -3,6 +3,8 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
+from probvis.aux import save_fig
+
 
 def plot_params(params, save_dir, name, title='', close=None):
     f = plt.figure(figsize=(15, 10))
@@ -12,7 +14,7 @@ def plot_params(params, save_dir, name, title='', close=None):
     ax.stem(x, params, use_line_collection=True)
     ax.set_title(title)
 
-    f.savefig(os.path.join(save_dir, '{}_exp_params.png'.format(name)))
+    save_fig(f, os.path.join(save_dir, '{}_exp_params'.format(name)))
 
     if close != -1: plt.close(close)
     return f
