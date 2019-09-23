@@ -93,7 +93,8 @@ def plot_n_image_grid(save_dir, x_data, n_col, n_row, n_bs, name, direction=1):
 
 def scatter_images(x_data, y_data, images, ax):
     arg_list = np.argsort(y_data)
-    zoom = 1 if images.shape[1] == 32 else 0.5
+    if type(y_data) == list: y_data = np.array(y_data)
+    zoom = 1 if images.shape[1] in [32,28] else 0.5
     if images.shape[-1] == 1:
         images = np.tile(images, [1,1,1,3])
     if (images.shape[0] < 30):

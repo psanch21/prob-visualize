@@ -5,7 +5,7 @@ import probvis.images as pvi
 import numpy as np
 
 
-def mean_var_plot(save_dir, x, name='',  xlabel='x', ylabel='y', close=None):
+def mean_var_plot(save_dir, x, name='',  xlabel='x', ylabel='y', close='all'):
     n_samples, dim = x.shape
     mean = np.mean(x, axis=0)
     var  = np.var(x, axis=0)
@@ -16,10 +16,14 @@ def mean_var_plot(save_dir, x, name='',  xlabel='x', ylabel='y', close=None):
     ax.plot(x_range, mean, 'o', label='mean')
     ax.plot(x_range, var, 'o', label='var')
 
-    ax.set_xlabel(xlabel, fontsize=14)
-    ax.set_ylabel(ylabel, fontsize=14)
+    ax.legend(fontsize=18)
 
-    if name is not '': name += '_'
+    ax.set_xlabel(xlabel, fontsize=18)
+    ax.set_ylabel(ylabel, fontsize=18)
+
+    ax.grid(True)
+    if name is not '':
+        name = '{}_'.format(name)
     save_fig(f, os.path.join(save_dir, '{}mean_var'.format(name)))
     if close != -1: plt.close(close)
 
@@ -37,7 +41,7 @@ def hist_plot( x, label=None, density=False, logy=False, alpha=1.0, ax=None):
 
 
 
-def multi_hist_plot(save_dir, data_list, label_list, name='', xlabel='x', density=False, logy=False, alpha=1.0,fontsize=18, close=None):
+def multi_hist_plot(save_dir, data_list, label_list, name='', xlabel='x', density=False, logy=False, alpha=1.0,fontsize=18, close='all'):
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
@@ -48,7 +52,9 @@ def multi_hist_plot(save_dir, data_list, label_list, name='', xlabel='x', densit
     f.tight_layout()
     ax.legend(fontsize=22)
     ax.tick_params(axis='both', which='major', labelsize=16)
-    if name is not '': name += '_'
+    ax.grid(True)
+    if name is not '':
+        name = '{}_'.format(name)
     save_fig(f, os.path.join(save_dir, '{}hist'.format(name)))
     if close != -1: plt.close(close)
 
@@ -57,37 +63,44 @@ def multi_hist_plot(save_dir, data_list, label_list, name='', xlabel='x', densit
 
 
 
-def scater_plot(save_dir, x_data, y_data, name='', alpha=1.0,  xlabel='x', ylabel='y', close=None):
+def scater_plot(save_dir, x_data, y_data, name='', alpha=1.0,  xlabel='x', ylabel='y', close='all'):
     assert len(x_data) == len(y_data)
 
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
     ax.scatter(x_data, y_data, alpha=alpha)
-    ax.set_xlabel(xlabel, fontsize=14)
-    ax.set_ylabel(ylabel, fontsize=14)
+    ax.set_xlabel(xlabel, fontsize=18)
+    ax.set_ylabel(ylabel, fontsize=18)
 
-    if name is not '': name += '_'
+    ax.grid(True)
+
+    if name is not '':
+        name = '{}_'.format(name)
     save_fig(f, os.path.join(save_dir, '{}scatter'.format(name)))
     if close != -1: plt.close(close)
 
 
 
 
-def scater_plot_with_images(save_dir, x_data, y_data, images, name='', alpha=1.0,  xlabel='x', ylabel='y', close=None):
-    assert len(x_data) == len(y_data)
+def scater_plot_with_images(save_dir, x_data, y_data, images, name='', alpha=1.0,  xlabel='x', ylabel='y', close='all'):
+    assert len(x_data) == len(y_data), 'x_data {} y_data {} images {}'.format(len(x_data), len(y_data), len(images))
     assert len(x_data) == len(images)
 
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
     ax.scatter(x_data, y_data, alpha=alpha)
-    ax.set_xlabel(xlabel, fontsize=14)
-    ax.set_ylabel(ylabel, fontsize=14)
+    ax.set_xlabel(xlabel, fontsize=18)
+    ax.set_ylabel(ylabel, fontsize=18)
 
     pvi.scatter_images(x_data, y_data, images, ax)
 
-    if name is not '': name += '_'
+    ax.grid(True)
+    f.tight_layout()
+
+    if name is not '':
+        name = '{}_'.format(name)
     save_fig(f, os.path.join(save_dir, '{}scatter_im'.format(name)))
     if close != -1: plt.close(close)
 

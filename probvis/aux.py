@@ -21,9 +21,9 @@ IS_LATEX = True
 
 def save_fig(f, complete_fig_name):
     print('Fig name: {}'.format(complete_fig_name))
-    f.savefig(complete_fig_name + '.png')
+    f.savefig('{}.png'.format(complete_fig_name))
     if IS_LATEX:
         try:
-            tikz_save(complete_fig_name + '.tex')
+            tikz_save('{}.tex'.format(complete_fig_name), encoding='utf8')
         except NameError:
             print('NameError in tikz_save')

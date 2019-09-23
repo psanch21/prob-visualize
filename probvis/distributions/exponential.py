@@ -6,7 +6,7 @@ import numpy as np
 from probvis.aux import save_fig
 
 
-def plot_params(params, save_dir, name, title='', close=None):
+def plot_params(params, save_dir, name, title='', close='all'):
     f = plt.figure(figsize=(15, 10))
     x = np.arange(len(params))
     ax = plt.subplot(1, 1, 1)

@@ -6,7 +6,7 @@ import seaborn as sns
 import probvis.images as pvi
 
 
-def plot_probs_with_images(images, probs, save_dir, name, close=None):
+def plot_probs_with_images(images, probs, save_dir, name, close='all'):
     fig_list = list()
     n_samples = images.shape[0]
 
@@ -37,7 +37,7 @@ def plot_probs_with_images(images, probs, save_dir, name, close=None):
     return fig_list
 
 
-def plot_one_hot(one_hot, save_dir, name, close=None):
+def plot_one_hot(one_hot, save_dir, name, close='all'):
     n_samples = one_hot.shape[0]
 
     one_hot = (one_hot == 1).tolist()

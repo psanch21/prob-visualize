@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-def plot_one_hot(one_hot, save_dir, name, close=None):
+def plot_one_hot(one_hot, save_dir, name, close='all'):
     n_samples = one_hot.shape[0]
 
     one_hot = (one_hot == 1).tolist()
