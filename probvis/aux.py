@@ -15,13 +15,17 @@ except Exception as exc:
 
 
 #%%
-IS_LATEX = True
+IS_LATEX = False
+
+def activate_latex_format():
+    plt.rc('text', usetex=True)
+    plt.rc('font', family='serif')
 
 #%%
 
 def save_fig(f, complete_fig_name):
     print('Fig name: {}'.format(complete_fig_name))
-    f.savefig('{}.png'.format(complete_fig_name))
+    f.savefig('{}.pdf'.format(complete_fig_name), dpi=300)
     if IS_LATEX:
         try:
             tikz_save('{}.tex'.format(complete_fig_name), encoding='utf8')
