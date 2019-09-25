@@ -134,13 +134,15 @@ def scater_plot_with_images(save_dir, x_data, y_data, images, name='', alpha=1.0
     ax = plt.subplot(1, 1, 1)
 
     ax.scatter(x_data, y_data, alpha=alpha)
-    ax.set_xlabel(xlabel, fontsize=18)
-    ax.set_ylabel(ylabel, fontsize=18)
+    ax.set_xlabel(xlabel, fontsize=32)
+    ax.set_ylabel(ylabel, fontsize=32)
 
     pvi.scatter_images(x_data, y_data, images, ax)
 
+    ax.tick_params(axis='both', which='major', labelsize=16)
+
     ax.grid(True)
-    f.tight_layout()
+    # f.tight_layout()
 
     if name is not '':
         name = '{}_'.format(name)

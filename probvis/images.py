@@ -80,11 +80,10 @@ def extend_image_h(image, pos, n, color=(255, 255, 255)):
 
 
 def plot_n_image_grid(save_dir, x_data, n_col, n_row, n_bs, name, direction=1):
-    h, w = x_data.shape[1:3]
     n_imgs = n_col * n_row
     for i in range(n_bs):
         x = x_data[i * n_imgs:(i + 1) * n_imgs]
-        tmp_img = merge_images(x, [h, w], n_row, n_col, direction=direction, dtype=int)
+        tmp_img = merge_images(x, n_row, n_col, direction=direction, dtype=int)
         f, _ = plot_image(tmp_img)
         f.savefig(os.path.join(save_dir, '{}_grid_{}.png'.format(name, i)))
 
