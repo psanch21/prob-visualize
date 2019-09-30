@@ -99,7 +99,7 @@ def scater_plot_cluster(save_dir, x_data, y_data,label, label_id, color, marker,
     ax.set_xlim(x_lim)
     ax.set_ylim(y_lim)
 
-    ax.tick_params(axis='both', which='major', labelsize=16)
+    ax.tick_params(axis='both', which='major', labelsize=32)
 
     ax.grid(True)
     f.tight_layout()
@@ -114,7 +114,7 @@ def scater_plot_cluster(save_dir, x_data, y_data,label, label_id, color, marker,
     idx = np.argsort(label_list)
     label_list = [ label_list[i] for i in idx]
     handle_list = [handle_list[i] for i in idx]
-    ax.legend(handle_list, label_list, fontsize=18, frameon=False, ncol=2,handlelength=4)
+    ax.legend(handle_list, label_list, fontsize=32, frameon=False, ncol=2,handlelength=4)
 
 
     if name is not '':
