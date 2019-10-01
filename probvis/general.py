@@ -52,7 +52,7 @@ def multi_hist_plot(save_dir, data_list, label_list, name='', xlabel='x', densit
         hist_plot(x, l, density=density, logy=logy,  alpha=alpha, ax=ax)
 
     ax.set_xlabel(xlabel, fontsize=fontsize)
-    f.tight_layout()
+    # f.tight_layout()
     ax.legend(fontsize=32, frameon=False)
     ax.tick_params(axis='both', which='major', labelsize=32)
     ax.grid(True)
