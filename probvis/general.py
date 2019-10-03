@@ -14,25 +14,50 @@ def mean_var_plot(save_dir, x, name='',  xlabel='x', ylabel='y', close='all'):
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
-    ax.plot(x_range, mean, 'o', label=r'$\mu$')
-    ax.plot(x_range, var, 'o', label=r'$\sigma^2$')
+    ax.plot(x_range, mean, 'o', label=r'$\mu$', color='black')
 
-    ax.legend(fontsize=32, frameon=True, ncol=2, handlelength=4, loc='center')
-    ax.tick_params(axis='both', which='major', labelsize=16)
+    # ax.legend(fontsize=32, frameon=True, ncol=2, handlelength=4, loc='center')
+    ax.tick_params(axis='both', which='major', labelsize=20)
     ax.set_xlabel(xlabel, fontsize=32)
-    ax.set_ylabel(ylabel, fontsize=32)
-
+    ax.set_ylabel(r'$\mu$', fontsize=32)
     ax.grid(True)
+
+    ax2 = ax.twinx()
+
+    ax2.plot(x_range, var, '*', label=r'$\sigma^2$', color='green')
+    ax2.set_ylabel(r'$\sigma^2$', fontsize=32)
+    ax.tick_params(axis='both', which='major', labelsize=20)
+
+
     if name is not '':
         name = '{}_'.format(name)
     save_fig(f, os.path.join(save_dir, '{}mean_var'.format(name)))
     if close != -1: plt.close(close)
 
+def var_plot(save_dir, x, name='',  xlabel='x', close='all'):
+    n_samples, dim = x.shape
+    var  = np.var(x, axis=0)
+    x_range = list(range(dim))
+    f = plt.figure(figsize=(15, 10))
+    ax = plt.subplot(1, 1, 1)
+
+    ax.plot(x_range, var, 'o', color='green')
+    ax.tick_params(axis='both', which='major', labelsize=16)
+    ax.set_xlabel(xlabel, fontsize=32)
+    ax.set_ylabel(r'$\sigma^2$', fontsize=32)
+    ax.grid(True)
+
+    if name is not '':
+        name = '{}_'.format(name)
+    save_fig(f, os.path.join(save_dir, '{}var'.format(name)))
+    if close != -1: plt.close(close)
+
+
 
 #%% Hist
 
 
-def hist_plot( x, label=None, density=False, logy=False, alpha=1.0, ax=None):
+def hist_plot_i( x, label=None, density=False, logy=False, alpha=1.0, ax=None):
     n_samples = len(x)
     bins = min(30, int(np.sqrt(n_samples)))
     if label is not None:
@@ -43,13 +68,37 @@ def hist_plot( x, label=None, density=False, logy=False, alpha=1.0, ax=None):
     if logy: ax.set_yscale('log')
 
 
+def hist_plot(save_dir, x, label=None, density=False,name='', logy=False, alpha=1.0, xlabel='x', fontsize=32, close='all'):
+    n_samples = len(x)
+    bins = min(30, int(np.sqrt(n_samples)))
+    f = plt.figure(figsize=(15, 10))
+    ax = plt.subplot(1, 1, 1)
+
+    if label is not None:
+        ax.hist(x, density=density, label=label, alpha=alpha, bins=bins)
+    else:
+        ax.hist(x, density=density, alpha=alpha, bins=bins)
+
+    if logy: ax.set_yscale('log')
+
+    ax.set_xlabel(xlabel, fontsize=fontsize)
+    # f.tight_layout()
+    ax.tick_params(axis='both', which='major', labelsize=32)
+    ax.grid(True)
+    if name is not '':
+        name = '{}_'.format(name)
+    save_fig(f, os.path.join(save_dir, '{}hist'.format(name)))
+    if close != -1: plt.close(close)
+
+
+
 
 def multi_hist_plot(save_dir, data_list, label_list, name='', xlabel='x', density=False, logy=False, alpha=1.0,fontsize=32, close='all'):
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
     for x, l in zip(data_list, label_list):
-        hist_plot(x, l, density=density, logy=logy,  alpha=alpha, ax=ax)
+        hist_plot_i(x, l, density=density, logy=logy,  alpha=alpha, ax=ax)
 
     ax.set_xlabel(xlabel, fontsize=fontsize)
     # f.tight_layout()
@@ -85,7 +134,7 @@ def scater_plot(save_dir, x_data, y_data,name='', alpha=1.0,  xlabel='x', ylabel
     save_fig(f, os.path.join(save_dir, '{}scatter'.format(name)))
     if close != -1: plt.close(close)
 
-def scater_plot_cluster(save_dir, x_data, y_data,label, label_id, color, marker, name='', alpha=1.0,  xlabel='x', ylabel='y', close='all', x_lim=[0.0, 1.0], y_lim=[0.0, 1.0]):
+def scater_plot_cluster(save_dir, x_data, y_data,label, label_id, color, marker, name='', alpha=1.0,  xlabel='x', ylabel='y', close='all', x_lim=[0.0, 1.0], y_lim=[0.0, 1.0], islegend=True):
     assert len(x_data) == len(y_data)
 
     f = plt.figure(figsize=(15, 10))
@@ -93,8 +142,7 @@ def scater_plot_cluster(save_dir, x_data, y_data,label, label_id, color, marker,
 
     for i in range(len(x_data)):
         ax.scatter(x_data[i], y_data[i], label=label[i], marker=marker[label_id[i]], s=256, alpha=alpha, color=color[label_id[i]])
-    ax.set_xlabel(xlabel, fontsize=32)
-    ax.set_ylabel(ylabel, fontsize=32)
+
 
     ax.set_xlim(x_lim)
     ax.set_ylim(y_lim)
@@ -102,7 +150,7 @@ def scater_plot_cluster(save_dir, x_data, y_data,label, label_id, color, marker,
     ax.tick_params(axis='both', which='major', labelsize=32)
 
     ax.grid(True)
-    f.tight_layout()
+    # f.tight_layout()
 
     handles, labels = ax.get_legend_handles_labels()
     handle_list, label_list = [], []
@@ -114,7 +162,13 @@ def scater_plot_cluster(save_dir, x_data, y_data,label, label_id, color, marker,
     idx = np.argsort(label_list)
     label_list = [ label_list[i] for i in idx]
     handle_list = [handle_list[i] for i in idx]
-    ax.legend(handle_list, label_list, fontsize=32, frameon=False, ncol=2,handlelength=4)
+    if islegend:
+        ax.legend(handle_list, label_list, fontsize=32, frameon=False, ncol=1,handlelength=4)
+        ax.set_xlabel(xlabel, fontsize=32)
+        ax.set_ylabel(ylabel, fontsize=32)
+
+
+
 
 
     if name is not '':
