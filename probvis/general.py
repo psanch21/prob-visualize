@@ -121,7 +121,7 @@ def multi_hist_plot(save_dir, data_list, label_list, name='', color_list=None, x
 
         ax.set_xlim(x_lim)
     # f.tight_layout()
-    ax.legend(fontsize=32, frameon=False)
+    ax.legend(fontsize=fontsize, frameon=False)
     ax.tick_params(axis='both', which='major', labelsize=32)
     ax.grid(True)
     if name is not '':
