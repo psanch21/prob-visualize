@@ -1,7 +1,12 @@
-# prob-visualize
-A collection of functions to visualize results of different types of data. This is an on going project.
+# ProbVis: A collection of functions to visualize your data
+A collection of functions to visualize results of different types of data. This is an on going project. 
 
 ## Getting Started
+
+To run the tests
+```
+python -m unittest -v tests/test_images.py 
+```
 
 ## Images
 
