@@ -2,8 +2,11 @@
 A collection of functions to visualize results of different types of data. This is an on going project. 
 
 ## Getting Started
-
-To run the tests
+To install, open a terminal window go to the root folder of the project and run:
+```
+pip3 install ./
+```
+To run the tests:
 ```
 python -m unittest -v tests/test_images.py 
 ```
