@@ -52,3 +52,8 @@ def plot_one_hot(one_hot, save_dir, name, close='all'):
 
     if close != -1: plt.close(close)
     return f
+
+
+
+def plot_word_cloud(images, probs, save_dir, name, close='all'):
+    return fig_list
