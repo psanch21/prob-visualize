@@ -2,9 +2,11 @@ import os
 
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import probvis.aux as pva
 import probvis.images as pvi
 
+from probvis.aux import save_fig
+from wordcloud import WordCloud
 
 def plot_probs_with_images(images, probs, save_dir, name, close='all'):
     fig_list = list()
@@ -55,5 +57,27 @@ def plot_one_hot(one_hot, save_dir, name, close='all'):
 
 
 
-def plot_word_cloud(images, probs, save_dir, name, close='all'):
-    return fig_list
+def plot_word_cloud(save_dir, word_list, **args):
+    words = ' '.join(word_list)
+    name = '{}_'.format(args['name'])if 'name' in args else ''
+    close = args['close'] if 'close' in args else 'all'
+    colormap = args['colormap'] if 'colormap' in args else pva.random_cmap()
+    wordcloud = WordCloud(width=800, height=800,
+                          background_color='black',
+                          colormap=colormap,
+                          min_font_size=10).generate(words)
+
+    f = plt.figure(figsize=(15, 15))
+    ax = plt.subplot(1, 1, 1)
+
+    ax.imshow(wordcloud, interpolation="bilinear")
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.set_aspect('equal')
+    plt.axis('off')
+
+    plt.subplots_adjust(wspace=0, hspace=0)
+    if 'tight' in args: f.tight_layout()
+
+    save_fig(f, os.path.join(save_dir, '{}image'.format(name)))
+    if close != -1: plt.close(close)

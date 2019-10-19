@@ -1,5 +1,5 @@
 import os
-
+from probvis.aux import save_fig
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
@@ -31,6 +31,43 @@ def plot_image(image, ax=None, title=''):
     plt.subplots_adjust(wspace=0, hspace=0)
     plt.tight_layout()
     return f, ax
+
+
+def plot_image2(save_dir, image,  **args):
+    h, w, c = image.shape
+
+    ax = args['ax'] if 'ax' in args else None
+    title = args['title'] if 'title' in args else ''
+
+    name = '{}_'.format(args['name']) if 'name' in args else ''
+    isgray = args['isgray'] if 'isgray' in args else False
+    close = args['close'] if 'close' in args else 'all'
+
+    ratio = h / w
+    if c == 1:
+        image = image.reshape([h, w])
+        isgray = True
+
+    h_fig = int(np.ceil(15 * ratio))
+    f = None
+    if ax is None:
+        f = plt.figure(figsize=(15, h_fig))
+        ax = plt.subplot(1, 1, 1)
+
+    if isgray:
+        ax.imshow(image, cmap='gray')
+    else:
+        ax.imshow(image)
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.set_aspect('equal')
+    plt.axis('off')
+    ax.set_title(title)
+    plt.subplots_adjust(wspace=0, hspace=0)
+    if 'tight' in args: f.tight_layout()
+
+    save_fig(f, os.path.join(save_dir, '{}image'.format(name)))
+    if close != -1: plt.close(close)
 
 
 def merge_images(images, rows, cols, direction=0, dtype=float):
