@@ -1,5 +1,5 @@
 # ProbVis: A collection of functions to visualize your data
-A collection of functions to visualize results of different types of data. This is an on going project. 
+A collection of functions to visualize results of different types of data. This is an on going project. Check out the `test` folder for examples of usage and the `images` folder for results.
 
 ## Getting Started
 To install, open a terminal window go to the root folder of the project and run:
