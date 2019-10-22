@@ -26,9 +26,27 @@ This is a tentative list of (sooner or later) available distributions:
 ```
 import probvis.distributions.categorical as pvc
 ```
-<!-- ![alt text](images/formula_cat.png) -->
 
-<img src="images/words_2_image.png" height="192">
+<table width="500" border="0" cellpadding="5">
+
+<tr>
+
+<td align="center" valign="center">
+<img src="images/words_2_image.png" height="256">
+<br />
+Caption text centered under the image.
+</td>
+
+<td align="center" valign="center">
+<img src="images/words_2_image.png" height="256">
+<br />
+Caption text centered under the image.
+</td>
+
+</tr>
+
+</table>
+
 
 ### Exponential
 ![alt text](images/formula_exp.png)
