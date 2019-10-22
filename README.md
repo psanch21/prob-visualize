@@ -33,7 +33,7 @@ import probvis.distributions.categorical as pvc
 <tr>
 
 <td align="center" valign="center">
-<img src="images/words_2_image.png" height="350">
+<img src="images/words_2_image.png" height="400">
 <br />
 pvc.plot_word_cloud()
 </td>
@@ -57,13 +57,13 @@ pvc.plot_word_cloud()
 <tr>
 
 <td align="center" valign="center">
-<img src="images/words_2_image.png" height="350">
+<img src="images/words_2_image.png" height="400">
 <br />
 pvc.plot_word_cloud()
 </td>
 
 <td align="center" valign="center">
-<img src="images/words_2_image.png" height="350">
+<img src="images/words_2_image.png" height="400">
 <br />
 pvc.plot_word_cloud()
 </td>
