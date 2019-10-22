@@ -57,7 +57,7 @@ def plot_one_hot(one_hot, save_dir, name, close='all'):
 
 
 
-def plot_word_cloud(save_dir, word_list, **args):
+def word_cloud_plot(save_dir, word_list, **args):
     words = ' '.join(word_list)
     name = '{}_'.format(args['name'])if 'name' in args else ''
     close = args['close'] if 'close' in args else 'all'

@@ -10,6 +10,6 @@ class TestCategorical(unittest.TestCase):
 
 
     def test_wordcloud(self):
-        self.assertRaises(Exception, pvc.plot_word_cloud(save_dir=save_dir, word_list=words, name='cat'), msg='There should not be an exception here')
+        self.assertRaises(Exception, pvc.word_cloud_plot(save_dir=save_dir, word_list=words, name='cat'), msg='There should not be an exception here')
 
 

@@ -35,7 +35,7 @@ import probvis.distributions.categorical as pvc
 <td align="center" valign="center">
 <img src="images/words_2_image.png" height="400">
 <br />
-pvc.plot_word_cloud()
+pvc.word_cloud_plot()
 </td>
 
 </table>
@@ -43,41 +43,58 @@ pvc.plot_word_cloud()
 </div>
 
 ### Exponential
-![alt text](images/formula_exp.png)
+
 ### Gaussian
-![alt text](images/formula_normal.png)
 
 
 ## General package
 
 ### Histogram
+```
+import probvis.general.heatmap as pvh
+```
+
+### General
+```
+import probvis.general.general as pvg
+```
+
 <div style="text-align: center;">
 <table width="500" border="0" cellpadding="5">
 
 <tr>
 
 <td align="center" valign="center">
-<img src="images/words_2_image.png" height="400">
+<img src="images/Q_last_plot.png" height="400">
 <br />
-pvc.plot_word_cloud()
+pvg.simple_plot()
 </td>
-
-<td align="center" valign="center">
-<img src="images/words_2_image.png" height="400">
-<br />
-pvc.plot_word_cloud()
-</td>
-
 </tr>
 
 </table>
 
 </div>
 
-### General
-
 ### Heatmap
+```
+import probvis.general.heatmap as pvm
+```
 
+<div style="text-align: center;">
+<table width="500" border="0" cellpadding="5">
+
+<tr>
+
+<td align="center" valign="center">
+<img src="images/heatmap.png" height="400">
+<br />
+pvg.heatmap_plot()
+</td>
+</tr>
+
+</table>
+
+</div>
 
 ## Author
 
