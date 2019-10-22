@@ -32,13 +32,13 @@ import probvis.distributions.categorical as pvc
 <tr>
 
 <td align="center" valign="center">
-<img src="images/words_2_image.png" height="256">
+<img src="images/words_2_image.png" height="350">
 <br />
-Caption text centered under the image.
+`pvc.plot_word_cloud()`
 </td>
 
 <td align="center" valign="center">
-<img src="images/words_2_image.png" height="256">
+<img src="images/words_2_image.png" height="350">
 <br />
 Caption text centered under the image.
 </td>
