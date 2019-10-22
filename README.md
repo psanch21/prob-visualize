@@ -8,6 +8,12 @@ To install, open a terminal window go to the root folder of the project and run:
 ```
 pip3 install ./
 ```
+or 
+
+```
+python setup.py install
+```
+
 To run the tests:
 ```
 python -m unittest -v tests/test_images.py 
