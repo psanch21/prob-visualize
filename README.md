@@ -1,5 +1,7 @@
 # ProbVis: A collection of functions to visualize your data
-A collection of functions to visualize results of different types of data. This is an on going project. Check out the `test` folder for examples of usage and the `images` folder for results.
+A collection of functions to visualize results of different types of data. 
+This is an on going project. Check out the `test` folder for examples of usage and 
+the `images` folder for results.
 
 ## Getting Started
 To install, open a terminal window go to the root folder of the project and run:
@@ -13,7 +15,7 @@ python -m unittest -v tests/test_images.py
 
 ## Images
 
-## Distributions
+## Distribution package
 This is a tentative list of (sooner or later) available distributions: 
 * ***Discrete:*** Categorical, Bernoulli, Poisson, ...
 
@@ -21,12 +23,20 @@ This is a tentative list of (sooner or later) available distributions:
 
 * ***Others:*** Mixture of Gaussians, ...
 ### Categorical
-![alt text](images/formula_cat.png)
+```
+import probvis.distributions.categorical as pvc
+```
+<!-- ![alt text](images/formula_cat.png) -->
+
+<img src="images/words_2_image.png" height="24" width="48">
+
 ### Exponential
 ![alt text](images/formula_exp.png)
 ### Gaussian
 ![alt text](images/formula_normal.png)
 
+
+## General package
 
 ## Author
 
