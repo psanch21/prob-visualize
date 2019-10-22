@@ -27,6 +27,7 @@ This is a tentative list of (sooner or later) available distributions:
 import probvis.distributions.categorical as pvc
 ```
 
+<div style="text-align: center;">
 <table width="500" border="0" cellpadding="5">
 
 <tr>
@@ -34,19 +35,12 @@ import probvis.distributions.categorical as pvc
 <td align="center" valign="center">
 <img src="images/words_2_image.png" height="350">
 <br />
-`pvc.plot_word_cloud()`
+pvc.plot_word_cloud()
 </td>
-
-<td align="center" valign="center">
-<img src="images/words_2_image.png" height="350">
-<br />
-Caption text centered under the image.
-</td>
-
-</tr>
 
 </table>
 
+</div>
 
 ### Exponential
 ![alt text](images/formula_exp.png)
@@ -55,6 +49,35 @@ Caption text centered under the image.
 
 
 ## General package
+
+### Histogram
+<div style="text-align: center;">
+<table width="500" border="0" cellpadding="5">
+
+<tr>
+
+<td align="center" valign="center">
+<img src="images/words_2_image.png" height="350">
+<br />
+pvc.plot_word_cloud()
+</td>
+
+<td align="center" valign="center">
+<img src="images/words_2_image.png" height="350">
+<br />
+pvc.plot_word_cloud()
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+### General
+
+### Heatmap
+
 
 ## Author
 
