@@ -28,7 +28,7 @@ import probvis.distributions.categorical as pvc
 ```
 <!-- ![alt text](images/formula_cat.png) -->
 
-<img src="images/words_2_image.png" height="48">
+<img src="images/words_2_image.png" height="192">
 
 ### Exponential
 ![alt text](images/formula_exp.png)
