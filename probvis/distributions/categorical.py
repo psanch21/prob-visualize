@@ -61,10 +61,13 @@ def word_cloud_plot(save_dir, word_list, **args):
     words = ' '.join(word_list)
     name = '{}_'.format(args['name'])if 'name' in args else ''
     close = args['close'] if 'close' in args else 'all'
-    colormap = args['colormap'] if 'colormap' in args else pva.random_cmap()
+    colormap = args['colormap'] if 'colormap' in args else pva.get_random_cmap()
+    relative_scaling =  args['relative_scaling'] if 'relative_scaling' in args else 0
+
     wordcloud = WordCloud(width=800, height=800,
                           background_color='black',
                           colormap=colormap,
+                          relative_scaling=relative_scaling,
                           min_font_size=10).generate(words)
 
     f = plt.figure(figsize=(15, 15))
