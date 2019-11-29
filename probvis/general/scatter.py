@@ -49,7 +49,7 @@ def scatter_plot_list(save_dir, x_list, y_list, color_list, label_list, name='',
     if close != -1: plt.close(close)
 
 
-def scater_plot_cluster(save_dir, x_data, y_data, label, label_id, color, marker, name='', alpha=1.0, xlabel='x',
+def scatter_plot_cluster(save_dir, x_data, y_data, label, label_id, color, marker, name='', alpha=1.0, xlabel='x',
                         ylabel='y', close='all', x_lim=[0.0, 1.0], y_lim=[0.0, 1.0], islegend=True):
     assert len(x_data) == len(y_data)
 
