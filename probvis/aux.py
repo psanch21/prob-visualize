@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import os
 import random
 
+import shutil
+
 try:
     from tikzplotlib import save as tikz_save
 except Exception as exc:
@@ -204,3 +206,12 @@ def create_dir(folder):
         os.makedirs(folder)
 
     return folder
+
+
+def clear_dir(folder):
+    try:
+        shutil.rmtree(folder)
+    except:
+        pass
+
+    return create_dir(folder)
