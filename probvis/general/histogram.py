@@ -11,10 +11,25 @@ def hist_plot_i(x, label=None, color=None, density=False, logy=False, bins=None,
     if logy: ax.set_yscale('log')
 
 
-def hist_plot(save_dir, x, label=None, density=False, name='', logy=False, alpha=1.0, xlabel='x', ylabel='',
-              fontsize=32, close='all'):
+def hist_plot(save_dir, x, **args):
     n_samples = len(x)
-    bins = min(30, int(np.sqrt(n_samples)))
+
+    label = args['label'] if 'label' in args else None
+    density = args['density'] if 'density' in args else False
+
+    logy = args['logy'] if 'logy' in args else False
+    bins = args['bins'] if 'bins' in args else min(30, int(np.sqrt(n_samples)))
+    alpha = args['alpha'] if 'alpha' in args else 1.0
+
+    xlabel = args['xlabel'] if 'xlabel' in args else 'x'
+    ylabel = args['ylabel'] if 'ylabel' in args else ''
+
+    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    close = args['close'] if 'close' in args else 'all'
+
+    name = '{}_'.format(args['name']) if 'name' in args else ''
+
+
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
@@ -32,8 +47,7 @@ def hist_plot(save_dir, x, label=None, density=False, name='', logy=False, alpha
     ax.grid(True)
     if label is not None:
         ax.legend(fontsize=32, frameon=True)
-    if name is not '':
-        name = '{}_'.format(name)
+
     save_fig(f, os.path.join(save_dir, '{}hist'.format(name)))
     if close != -1: plt.close(close)
 

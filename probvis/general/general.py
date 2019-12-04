@@ -14,6 +14,9 @@ def simple_plot(save_dir, y, **args):
 
     name = '{}_'.format(args['name']) if 'name' in args else ''
     fontsize = args['fontsize'] if 'fontsize' in args else 32
+    limit_y = args['limit_y'] if 'limit_y' in args else None
+
+
     close = args['close'] if 'close' in args else 'all'
     color = args['color'] if 'color' in args else 'black'
     marker = args['marker'] if 'marker' in args else '-'
@@ -23,6 +26,9 @@ def simple_plot(save_dir, y, **args):
     ax = plt.subplot(1, 1, 1)
     ax.grid(True)
     ax.plot(x, y, marker, color=color)
+    if limit_y is not None:
+        ax.set_ylim(limit_y)
+
     ax.set_ylabel(y_label, fontsize=fontsize)
     ax.set_xlabel(x_label, fontsize=fontsize)
 
