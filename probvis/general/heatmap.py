@@ -4,6 +4,7 @@ import seaborn as sns
 import os
 def heatmap_plot(save_dir, matrix, **args):
     y_label = args['y_label'] if 'y_label' in args else 'y'
+    y_ticks = args['y_ticks'] if 'y_ticks' in args else None
     x_label = args['x_label'] if 'x_label' in args else 'x'
 
     name = '{}_'.format(args['name'])if 'name' in args else ''
@@ -19,6 +20,7 @@ def heatmap_plot(save_dir, matrix, **args):
 
     ax.tick_params(axis='both', which='major', labelsize=16)
     ax.set_xticklabels([])
+    if y_ticks is not None: ax.set_yticklabels(y_ticks)
 
     if 'tight' in args: f.tight_layout()
 
