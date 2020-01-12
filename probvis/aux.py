@@ -203,7 +203,7 @@ def save_fig(f, complete_fig_name):
 
 def create_dir(folder):
     if not os.path.exists(folder):
-        os.makedirs(folder)
+        os.makedirs(folder,  exist_ok=True)
 
     return folder
 
