@@ -10,9 +10,10 @@ def heatmap_plot(save_dir, matrix, **args):
     name = '{}_'.format(args['name'])if 'name' in args else ''
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     close = args['close'] if 'close' in args else 'all'
+    figsize = args['figsize'] if 'figsize' in args else (10, 10)
 
 
-    f = plt.figure()
+    f = plt.figure(figsize=figsize)
     ax = plt.subplot(1, 1, 1)
     sns.heatmap(matrix, ax=ax, vmin=0.0, vmax=1.0)
     ax.set_ylabel(y_label,  fontsize=fontsize)

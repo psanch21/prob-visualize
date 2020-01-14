@@ -15,28 +15,39 @@ def simple_plot(save_dir, y, **args):
     name = '{}_'.format(args['name']) if 'name' in args else ''
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     limit_y = args['limit_y'] if 'limit_y' in args else None
+    title = args['title'] if 'title' in args else ''
 
 
     close = args['close'] if 'close' in args else 'all'
     color = args['color'] if 'color' in args else 'black'
     marker = args['marker'] if 'marker' in args else '-'
+    label = args['label'] if 'label' in args else None
     x = args['x'] if 'x' in args else list(range(len(y)))
 
-    f = plt.figure()
-    ax = plt.subplot(1, 1, 1)
+    f = None
+    if 'ax' not in args:
+        f = plt.figure(figsize=(15, 10))
+        ax = plt.subplot(1, 1, 1)
+    else:
+        ax = args['ax']
+
     ax.grid(True)
-    ax.plot(x, y, marker, color=color)
+    if label is not None:
+        ax.plot(x, y, marker, color=color, label=label)
+    else:
+        ax.plot(x, y, marker, color=color)
     if limit_y is not None:
         ax.set_ylim(limit_y)
 
     ax.set_ylabel(y_label, fontsize=fontsize)
     ax.set_xlabel(x_label, fontsize=fontsize)
 
-    ax.tick_params(axis='both', which='major', labelsize=16)
+    ax.tick_params(axis='both', which='major', labelsize=fontsize)
+    ax.set_title(title)
 
     if 'tight' in args: f.tight_layout()
 
-    save_fig(f, os.path.join(save_dir, '{}plot'.format(name)))
+    if f is not None: save_fig(f, os.path.join(save_dir, '{}plot'.format(name)))
     if close != -1: plt.close(close)
 
 

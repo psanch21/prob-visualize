@@ -19,8 +19,12 @@ def bar_plot(save_dir, y, **args):
 
     ticksize = args['ticksize'] if 'ticksize' in args.keys() else 12
 
-    f = plt.figure()
-    ax = plt.subplot(1, 1, 1)
+    f = None
+    if 'ax' not in args:
+        f = plt.figure(figsize=(15, 10))
+        ax = plt.subplot(1, 1, 1)
+    else:
+        ax = args['ax']
     sns.barplot(x=x, y=y, ax=ax)
     ax.set_ylabel(y_label, fontsize=fontsize)
     ax.set_xlabel(x_label, fontsize=fontsize)
@@ -37,5 +41,5 @@ def bar_plot(save_dir, y, **args):
     ax.grid(True)
     if 'tight' in args: f.tight_layout()
 
-    save_fig(f, os.path.join(save_dir, '{}bar'.format(name)))
+    if f is not None: save_fig(f, os.path.join(save_dir, '{}bar'.format(name)))
     if close != -1: plt.close(close)

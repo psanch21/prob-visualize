@@ -23,15 +23,19 @@ def hist_plot(save_dir, x, **args):
 
     xlabel = args['xlabel'] if 'xlabel' in args else 'x'
     ylabel = args['ylabel'] if 'ylabel' in args else ''
+    title = args['title'] if 'title' in args else ''
+
 
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     close = args['close'] if 'close' in args else 'all'
 
     name = '{}_'.format(args['name']) if 'name' in args else ''
-
-
-    f = plt.figure(figsize=(15, 10))
-    ax = plt.subplot(1, 1, 1)
+    f = None
+    if 'ax' not in args:
+        f = plt.figure(figsize=(15, 10))
+        ax = plt.subplot(1, 1, 1)
+    else:
+        ax = args['ax']
 
     if label is not None:
         ax.hist(x, density=density, label=label, alpha=alpha, bins=bins)
@@ -42,14 +46,16 @@ def hist_plot(save_dir, x, **args):
 
     ax.set_xlabel(xlabel, fontsize=fontsize)
     ax.set_ylabel(ylabel, fontsize=fontsize)
+    ax.set_title(title, fontsize=fontsize)
     # f.tight_layout()
-    ax.tick_params(axis='both', which='major', labelsize=32)
+    ax.tick_params(axis='both', which='major', labelsize=fontsize)
     ax.grid(True)
     if label is not None:
         ax.legend(fontsize=32, frameon=True)
 
-    save_fig(f, os.path.join(save_dir, '{}hist'.format(name)))
+    if f is not None: save_fig(f, os.path.join(save_dir, '{}hist'.format(name)))
     if close != -1: plt.close(close)
+    return ax
 
 import matplotlib.pyplot as plt
 import os
