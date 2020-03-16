@@ -34,9 +34,9 @@ def bar_plot(save_dir, y, **args):
 
     x_ticks = []
     locs, labels = plt.xticks()
-    for i, tick in enumerate(ax.get_xticks()):
-        x_ticks.append(str(tick) if i % 10 == 0 else '')
-    plt.xticks(locs, x_ticks)  # , rotation=45, horizontalalignment='right')
+    # for i, tick in enumerate(ax.get_xticks()):
+    #     x_ticks.append(str(tick) if i % 10 == 0 else '')
+    # plt.xticks(locs, x_ticks)  # , rotation=45, horizontalalignment='right')
 
     ax.grid(True)
     if 'tight' in args: f.tight_layout()

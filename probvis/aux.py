@@ -170,6 +170,9 @@ COLORS = ['mediumpurple',
           'aquamarine']
 # %%
 IS_LATEX = False
+IS_PDF = True
+
+#%%
 
 
 def get_random_cmap():
@@ -184,6 +187,11 @@ def get_color(id=-1):
         return COLORS[id]
 
 
+def activate_pdf_format(value):
+    global IS_PDF
+    IS_PDF = value
+
+    return
 def activate_latex_format():
     plt.rc('text', usetex=True)
     plt.rc('font', family='serif')
@@ -191,9 +199,12 @@ def activate_latex_format():
 
 # %%
 
-def save_fig(f, complete_fig_name):
+def save_fig(f, complete_fig_name, dpi=240):
     print('Fig name: {}'.format(complete_fig_name))
-    f.savefig('{}.pdf'.format(complete_fig_name), dpi=300)
+    if IS_PDF:
+        f.savefig('{}.pdf'.format(complete_fig_name), dpi=dpi)
+    else:
+        f.savefig('{}.png'.format(complete_fig_name), dpi=dpi)
     if IS_LATEX:
         try:
             tikz_save('{}.tex'.format(complete_fig_name), encoding='utf8')
@@ -215,3 +226,10 @@ def clear_dir(folder):
         pass
 
     return create_dir(folder)
+
+
+def remove(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+    return
+

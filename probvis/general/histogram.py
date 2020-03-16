@@ -1,3 +1,9 @@
+import os
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+from probvis.aux import save_fig
 
 
 def hist_plot_i(x, label=None, color=None, density=False, logy=False, bins=None, alpha=1.0, ax=None):
@@ -24,7 +30,6 @@ def hist_plot(save_dir, x, **args):
     xlabel = args['xlabel'] if 'xlabel' in args else 'x'
     ylabel = args['ylabel'] if 'ylabel' in args else ''
     title = args['title'] if 'title' in args else ''
-
 
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     close = args['close'] if 'close' in args else 'all'
@@ -56,12 +61,6 @@ def hist_plot(save_dir, x, **args):
     if f is not None: save_fig(f, os.path.join(save_dir, '{}hist'.format(name)))
     if close != -1: plt.close(close)
     return ax
-
-import matplotlib.pyplot as plt
-import os
-from probvis.aux import save_fig
-import probvis.images as pvi
-import numpy as np
 
 
 def multi_hist_plot(save_dir, data_list, label_list, name='', color_list=None, xlabel='x', ylabel='', density=False,

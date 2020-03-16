@@ -7,22 +7,32 @@ import probvis.images as pvi
 from probvis.aux import save_fig
 
 
-def scatter_plot(save_dir, x_data, y_data, name='', alpha=1.0, xlabel='x', ylabel='y', close='all'):
+def scatter_plot(x_data, y_data,  **args):
     assert len(x_data) == len(y_data)
+
+    y_label = args['y_label'] if 'y_label' in args else 'y'
+    y_ticks = args['y_ticks'] if 'y_ticks' in args else None
+    x_label = args['x_label'] if 'x_label' in args else 'x'
+    x_ticks = args['x_ticks'] if 'x_ticks' in args else None
+
+    save_dir = args['save_dir'] if 'save_dir' in args else None
+    alpha = args['alpha'] if 'alpha' in args else 1.0
+
+    name = '{}_'.format(args['name']) if 'name' in args else ''
+    close = args['close'] if 'close' in args else 'all'
 
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
     ax.scatter(x_data, y_data, alpha=alpha)
-    ax.set_xlabel(xlabel, fontsize=18)
-    ax.set_ylabel(ylabel, fontsize=18)
+    ax.set_xlabel(x_label, fontsize=18)
+    ax.set_ylabel(y_label, fontsize=18)
 
     ax.grid(True)
 
-    if name is not '':
-        name = '{}_'.format(name)
-    save_fig(f, os.path.join(save_dir, '{}scatter'.format(name)))
+    if save_dir: save_fig(f, os.path.join(save_dir, '{}scatter'.format(name)))
     if close != -1: plt.close(close)
+    return f
 
 
 def scatter_plot_list(save_dir, x_list, y_list, color_list, label_list, name='', xlabel='x', ylabel='y', close='all',

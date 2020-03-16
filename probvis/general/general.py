@@ -3,10 +3,34 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-from probvis.aux import save_fig
+from probvis.aux import save_fig, get_color
 
 
 # %% Plot
+
+def multi_simple_plot(save_dir, y_list, label_list, **args):
+    y_label = args['y_label'] if 'y_label' in args else 'y'
+    x_label = args['x_label'] if 'x_label' in args else 'x'
+    name = '{}_'.format(args['name']) if 'name' in args else ''
+
+    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    log_axis = args['log_axis'] if 'log_axis' in args else []
+    title = args['title'] if 'title' in args else ''
+    x = args['x'] if 'x' in args else list(range(len(y_list[0])))
+
+
+    close = args['close'] if 'close' in args else 'all'
+    f = plt.figure(figsize=(15, 10))
+    ax = plt.subplot(1, 1, 1)
+
+    for i, y in enumerate(y_list):
+        simple_plot(save_dir, x=x, y=y, label=label_list[i], y_label=y_label, x_label=x_label, color= get_color(i+1),log_axis=log_axis, close=-1, ax=ax)
+
+    ax.legend(fontsize=fontsize, frameon=True)
+    ax.set_title(title, fontsize=fontsize)
+    save_fig(f, os.path.join(save_dir, '{}_multiplot'.format(name)))
+
+    if close != -1: plt.close(close)
 
 def simple_plot(save_dir, y, **args):
     y_label = args['y_label'] if 'y_label' in args else 'y'
@@ -15,6 +39,7 @@ def simple_plot(save_dir, y, **args):
     name = '{}_'.format(args['name']) if 'name' in args else ''
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     limit_y = args['limit_y'] if 'limit_y' in args else None
+    log_axis = args['log_axis'] if 'log_axis' in args else []
     title = args['title'] if 'title' in args else ''
 
 
@@ -41,6 +66,8 @@ def simple_plot(save_dir, y, **args):
 
     ax.set_ylabel(y_label, fontsize=fontsize)
     ax.set_xlabel(x_label, fontsize=fontsize)
+    if 'y' in log_axis: ax.set_yscale('log')
+    if 'x' in log_axis: ax.set_xscale('log')
 
     ax.tick_params(axis='both', which='major', labelsize=fontsize)
     ax.set_title(title)
