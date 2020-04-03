@@ -63,8 +63,27 @@ def hist_plot(save_dir, x, **args):
     return ax
 
 
-def multi_hist_plot(save_dir, data_list, label_list, name='', color_list=None, xlabel='x', ylabel='', density=False,
-                    logy=False, alpha=1.0, fontsize=32, close='all', binwidth=None, x_lim=None):
+def multi_hist_plot(save_dir, data_list, label_list,  **args):
+    v_line = args['v_line'] if 'v_line' in args else None
+    color_list = args['color_list'] if 'color_list' in args else None
+
+    density = args['density'] if 'density' in args else False
+
+    logy = args['logy'] if 'logy' in args else False
+    binwidth = args['binwidth'] if 'binwidth' in args else None
+    alpha = args['alpha'] if 'alpha' in args else 1.0
+
+    xlabel = args['xlabel'] if 'xlabel' in args else 'x'
+    ylabel = args['ylabel'] if 'ylabel' in args else ''
+    x_lim = args['x_lim'] if 'x_lim' in args else None
+
+    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    close = args['close'] if 'close' in args else 'all'
+
+    name = '{}_'.format(args['name']) if 'name' in args else ''
+
+
+
     f = plt.figure(figsize=(15, 10))
     ax = plt.subplot(1, 1, 1)
 
@@ -90,7 +109,9 @@ def multi_hist_plot(save_dir, data_list, label_list, name='', color_list=None, x
     ax.legend(fontsize=fontsize, frameon=False)
     ax.tick_params(axis='both', which='major', labelsize=32)
     ax.grid(True)
-    if name is not '':
-        name = '{}_'.format(name)
+
+    if v_line is not None:
+        plt.axvline(x=v_line, color='k', linestyle='--')
     save_fig(f, os.path.join(save_dir, '{}hist'.format(name)))
     if close != -1: plt.close(close)
+    return f, ax
