@@ -1,5 +1,6 @@
 import matplotlib
 
+import numpy as np
 matplotlib.use('PS')
 # matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
@@ -233,3 +234,14 @@ def remove(filename):
         os.remove(filename)
     return
 
+
+
+# %% Axis
+
+def set_x_axis_style(ax, labels, label=None):
+    ax.get_xaxis().set_tick_params(direction='out')
+    ax.xaxis.set_ticks_position('bottom')
+    ax.set_xticks(np.arange(1, len(labels) + 1))
+    ax.set_xticklabels(labels)
+    ax.set_xlim(0.25, len(labels) + 0.75)
+    if label: ax.set_xlabel(label)

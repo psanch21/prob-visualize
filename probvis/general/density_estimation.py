@@ -21,6 +21,7 @@ def kde_plot(save_dir, x, **args):
     xlabel = args['xlabel'] if 'xlabel' in args else 'x'
     ylabel = args['ylabel'] if 'ylabel' in args else ''
     title = args['title'] if 'title' in args else ''
+    x_lim = args['x_lim'] if 'x_lim' in args else None
 
 
     fontsize = args['fontsize'] if 'fontsize' in args else 32
@@ -48,6 +49,7 @@ def kde_plot(save_dir, x, **args):
     ax.set_xlabel(xlabel, fontsize=fontsize)
     ax.set_ylabel(ylabel, fontsize=fontsize)
     ax.set_title(title, fontsize=fontsize)
+    if x_lim is not None: ax.set_xlim(x_lim)
     # f.tight_layout()
     ax.tick_params(axis='both', which='major', labelsize=fontsize)
     ax.grid(True)

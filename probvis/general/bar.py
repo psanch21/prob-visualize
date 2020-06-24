@@ -7,15 +7,16 @@ from probvis.aux import save_fig
 
 import numpy as np
 
-def bar_plot(save_dir, y, **args):
+def bar_plot(y, **args):
     y_label = args['y_label'] if 'y_label' in args else 'y'
     x_label = args['x_label'] if 'x_label' in args else 'x'
     x = args['x'] if 'x' in args else np.arange(0, len(y))
     title = args['title'] if 'title' in args else ''
 
-    name = '{}_'.format(args['name']) if 'name' in args else ''
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     close = args['close'] if 'close' in args else 'all'
+    rotation = args['rotation'] if 'rotation' in args else 0
+    orient = args['orient'] if 'orient' in args else 'v'
 
     ticksize = args['ticksize'] if 'ticksize' in args.keys() else 12
 
@@ -25,14 +26,19 @@ def bar_plot(save_dir, y, **args):
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
-    sns.barplot(x=x, y=y, ax=ax)
+
+    sns.barplot(x=x, y=y, orient=orient, ax=ax)
     ax.set_ylabel(y_label, fontsize=fontsize)
     ax.set_xlabel(x_label, fontsize=fontsize)
     ax.tick_params(axis='x', which='major', labelsize=ticksize)
     ax.set_title(title)
 
+    if rotation != 0:
+        plt.xticks(rotation=90)
+
 
     x_ticks = []
+
     locs, labels = plt.xticks()
     # for i, tick in enumerate(ax.get_xticks()):
     #     x_ticks.append(str(tick) if i % 10 == 0 else '')
@@ -41,5 +47,6 @@ def bar_plot(save_dir, y, **args):
     ax.grid(True)
     if 'tight' in args: f.tight_layout()
 
-    if f is not None: save_fig(f, os.path.join(save_dir, '{}bar'.format(name)))
     if close != -1: plt.close(close)
+
+    return ax, f

@@ -17,8 +17,17 @@ y2 = np.random.random(size=n)
 
 X = np.random.uniform(size=[n, 4])
 
+# %%
 pvgh.multi_hist_plot(save_dir=save_dir,
                      data_list=[x1 for i in range(3)],
+                     label_list=[str(i) for i in range(3)] ,
+                     name='a', color_list=None, xlabel='derivate', ylabel='prob', density=True,
+                    logy=False, alpha=0.7, fontsize=32, close=-1, binwidth=0.01, x_lim=None, v_line=0.5)
+
+
+
+# %%
+pvgh.hist_plot(x=y1,
                      label_list=[str(i) for i in range(3)] ,
                      name='a', color_list=None, xlabel='derivate', ylabel='prob', density=True,
                     logy=False, alpha=0.7, fontsize=32, close=-1, binwidth=0.01, x_lim=None, v_line=0.5)
