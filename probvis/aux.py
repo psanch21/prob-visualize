@@ -187,7 +187,11 @@ def get_color(id=-1):
     else:
         return COLORS[id]
 
-
+def get_color_list(id_list):
+    if isinstance(id_list, int):
+        return [ get_color(i) for i in range(1, id_list +1)]
+    elif isinstance(id_list, list):
+        return [get_color(i) for i in id_list]
 def activate_pdf_format(value):
     global IS_PDF
     IS_PDF = value
@@ -200,12 +204,12 @@ def activate_latex_format():
 
 # %%
 
-def save_fig(f, complete_fig_name, dpi=240):
+def save_fig(f, complete_fig_name, dpi=240, bbox_inches=None):
     print('Fig name: {}'.format(complete_fig_name))
     if IS_PDF:
-        f.savefig('{}.pdf'.format(complete_fig_name), dpi=dpi)
+        f.savefig('{}.pdf'.format(complete_fig_name), dpi=dpi, bbox_inches=bbox_inches)
     else:
-        f.savefig('{}.png'.format(complete_fig_name), dpi=dpi)
+        f.savefig('{}.png'.format(complete_fig_name), dpi=dpi, bbox_inches=bbox_inches)
     if IS_LATEX:
         try:
             tikz_save('{}.tex'.format(complete_fig_name), encoding='utf8')

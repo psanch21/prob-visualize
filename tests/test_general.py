@@ -44,7 +44,7 @@ pva.save_fig(f, os.path.join(save_dir,'stem'))
  #%%
 import probvis.general.density_estimation as pvde
 
-pvde.kde_plot(save_dir=save_dir, x=x1, bandwidth=0.01, xlabel=r'\textbf{Bold} $\log \mu$')
+pvde.kde_plot(x=x1, bandwidth=0.01, x_label=r'\textbf{Bold} $\log \mu$', pad=20)
 
 plt.show()
 

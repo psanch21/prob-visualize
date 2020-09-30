@@ -12,7 +12,7 @@ x = list(range(n))
 x1 = 10*np.random.random(n)
 x2 = np.random.normal(0,1,n)
 
-y1 = np.random.uniform(size=n)
+y1 = np.random.rand(n)
 y2 = np.random.random(size=n)
 
 X = np.random.uniform(size=[n, 4])
@@ -21,13 +21,27 @@ X = np.random.uniform(size=[n, 4])
 pvgh.multi_hist_plot(save_dir=save_dir,
                      data_list=[x1 for i in range(3)],
                      label_list=[str(i) for i in range(3)] ,
-                     name='a', color_list=None, xlabel='derivate', ylabel='prob', density=True,
+                     name='a', color_list=None, xlabel='derivate', ylabel='$\mathrm{E}_e[I_{es}^f]$', density=True,
                     logy=False, alpha=0.7, fontsize=32, close=-1, binwidth=0.01, x_lim=None, v_line=0.5)
 
 
 
 # %%
-pvgh.hist_plot(x=y1,
-                     label_list=[str(i) for i in range(3)] ,
-                     name='a', color_list=None, xlabel='derivate', ylabel='prob', density=True,
+f, ax = pvgh.hist_plot(x=y1, xlabel='derivate', ylabel='prob', density=True,
                     logy=False, alpha=0.7, fontsize=32, close=-1, binwidth=0.01, x_lim=None, v_line=0.5)
+
+pva.save_fig(f, 'images/hist_test')
+
+
+f, ax = pvgh.hist_plot(x=y1, xlabel='derivate', ylabel='prob',
+                    logx=True, bins=10, alpha=0.7)
+
+pva.save_fig(f, 'images/hist_test_logx')
+
+
+f, ax = pvgh.hist_plot(x=y1, xlabel='derivate', ylabel='prob',
+                    logx=True, density=True, bins=10, alpha=0.7)
+
+pva.save_fig(f, 'images/hist_test_logx_density')
+
+

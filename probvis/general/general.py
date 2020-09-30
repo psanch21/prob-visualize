@@ -45,8 +45,8 @@ def multi_simple_plot(save_dir, y_list, label_list, **args):
     return ax
 
 def simple_plot(y, **args):
-    y_label = args['y_label'] if 'y_label' in args else 'y'
-    x_label = args['x_label'] if 'x_label' in args else 'x'
+    y_label = args['y_label'] if 'y_label' in args else ''
+    x_label = args['x_label'] if 'x_label' in args else ''
 
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     y_lim = args['y_lim'] if 'y_lim' in args else None
@@ -64,6 +64,7 @@ def simple_plot(y, **args):
     figsize = args['figsize'] if 'figsize' in args else (15, 10)
 
     x = args['x'] if 'x' in args else list(range(len(y)))
+    rotate = args['rotate'] if 'rotate' in args else 0.0
 
     x_tick_label = args['x_tick_label'] if 'x_tick_label' in args else None
     f = None
@@ -96,6 +97,9 @@ def simple_plot(y, **args):
 
     if x_tick_label:
         ax.set_xticklabels(x_tick_label, fontsize=fontsize)
+
+    if rotate>0.0:
+        plt.xticks(rotation=rotate)
 
     if 'tight' in args: f.tight_layout()
 

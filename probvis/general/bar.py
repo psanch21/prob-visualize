@@ -50,3 +50,18 @@ def bar_plot(y, **args):
     if close != -1: plt.close(close)
 
     return ax, f
+
+
+
+def stacked_bar_plot(y_list, x_list, label_list, **args):
+    ax, f = None, None
+
+    for idx, (y, x) in enumerate(zip(y_list, x_list)):
+        if idx == 0:
+            ax, f = bar_plot(y=y, x=x)
+        else:
+            bar_plot(y=y, x=x, ax=ax)
+
+
+
+    return ax, f
