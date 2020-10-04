@@ -2,6 +2,7 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+import probvis.aux as pva
 
 from probvis.aux import save_fig
 
@@ -25,16 +26,20 @@ def hist_plot(x, **args):
     logy = args['logy'] if 'logy' in args else False
     logx = args['logx'] if 'logx' in args else False
     bins = args['bins'] if 'bins' in args else min(30, int(np.sqrt(n_samples)))
+
+    if 'bins_list' in args:
+        bins =  args['bins_list']
     alpha = args['alpha'] if 'alpha' in args else 1.0
 
-    xlabel = args['x_label'] if 'x_label' in args else 'x'
-    ylabel = args['y_label'] if 'y_label' in args else ''
+    x_label = args['x_label'] if 'x_label' in args else ''
+    y_label = args['y_label'] if 'y_label' in args else ''
     title = args['title'] if 'title' in args else ''
 
     fontsize = args['fontsize'] if 'fontsize' in args else 32
     close = args['close'] if 'close' in args else 'all'
     rotate = args['rotate'] if 'rotate' in args else 0.0
     v_line = args['v_line'] if 'v_line' in args else None
+    color = args['color'] if 'color' in args else pva.get_color(0)
     f = None
     if 'ax' not in args:
         f = plt.figure(figsize=(15, 10))
@@ -50,16 +55,16 @@ def hist_plot(x, **args):
 
 
     if label is not None:
-        ax.hist(x, density=density, label=label, alpha=alpha, bins=bins)
+        ax.hist(x, density=density, label=label, alpha=alpha, bins=bins, color=color)
     else:
-        ax.hist(x, density=density, alpha=alpha, bins=bins)
+        ax.hist(x, density=density, alpha=alpha, bins=bins, color=color)
 
     if logy: ax.set_yscale('log')
     if logx: ax.set_xscale('log')
 
 
-    ax.set_xlabel(xlabel, fontsize=fontsize)
-    ax.set_ylabel(ylabel, fontsize=fontsize)
+    ax.set_xlabel(x_label, fontsize=fontsize)
+    ax.set_ylabel(y_label, fontsize=fontsize)
     ax.set_title(title, fontsize=fontsize)
     # f.tight_layout()
     if rotate>0.0:

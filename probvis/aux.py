@@ -1,6 +1,7 @@
 import matplotlib
 
 import numpy as np
+
 matplotlib.use('PS')
 # matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
@@ -19,12 +20,18 @@ CMAPS = ['Greys', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds',
          'YlOrBr', 'YlOrRd', 'OrRd', 'PuRd', 'RdPu', 'BuPu',
          'GnBu', 'PuBu', 'YlGnBu', 'PuBuGn', 'BuGn', 'YlGn']
 
-
 #  list(mcolors.CSS4_COLORS.keys())
-COLORS = ['mediumpurple',
-          'red',
-          'darkslategrey',
-          'mediumslateblue',
+
+COLORS = ['blue', 'orange', 'green', 'red', 'grey', 'purple', 'lime', 'indigo', 'orange', 'black']
+COLORS_FULL = ['darkblue',
+          'darkgreen',
+          'darkred',
+          'goldenrod',
+          'darkcyan',
+          'darkviolet',
+          'goldenrod',
+          'black',
+          'darkorange',
           'purple',
           'steelblue',
           'lightpink',
@@ -58,7 +65,6 @@ COLORS = ['mediumpurple',
           'lightgoldenrodyellow',
           'lightskyblue',
           'mediumseagreen',
-          'darkviolet',
           'orangered',
           'blanchedalmond',
           'lightsalmon',
@@ -69,10 +75,9 @@ COLORS = ['mediumpurple',
           'snow',
           'cadetblue',
           'violet',
-          'darkorange',
+          'mediumpurple',
           'darkgrey',
           'blueviolet',
-          'goldenrod',
           'yellow',
           'deeppink',
           'mediumvioletred',
@@ -127,11 +132,10 @@ COLORS = ['mediumpurple',
           'saddlebrown',
           'lightcyan',
           'tan',
-          'darkblue',
+          'darkslategrey',
           'darkorchid',
           'chartreuse',
           'coral',
-          'darkcyan',
           'peachpuff',
           'magenta',
           'lightseagreen',
@@ -151,15 +155,14 @@ COLORS = ['mediumpurple',
           'darkslategray',
           'dimgrey',
           'moccasin',
-          'black',
           'hotpink',
           'palegreen',
           'teal',
-          'darkred',
+          'red',
           'darkslateblue',
           'midnightblue',
           'navajowhite',
-          'darkgreen',
+          'mediumslateblue',
           'lime',
           'lemonchiffon',
           'grey',
@@ -173,7 +176,8 @@ COLORS = ['mediumpurple',
 IS_LATEX = False
 IS_PDF = True
 
-#%%
+
+# %%
 
 
 def get_random_cmap():
@@ -182,21 +186,26 @@ def get_random_cmap():
 
 def get_color(id=-1):
     n = len(COLORS)
-    if id <1 or id >= n:
+    if id < 0 or id >= n:
         return random.choice(COLORS)
     else:
         return COLORS[id]
 
+
 def get_color_list(id_list):
     if isinstance(id_list, int):
-        return [ get_color(i) for i in range(1, id_list +1)]
+        return [get_color(i) for i in range(1, id_list + 1)]
     elif isinstance(id_list, list):
         return [get_color(i) for i in id_list]
+
+
 def activate_pdf_format(value):
     global IS_PDF
     IS_PDF = value
 
     return
+
+
 def activate_latex_format():
     plt.rc('text', usetex=True)
     plt.rc('font', family='serif')
@@ -219,7 +228,7 @@ def save_fig(f, complete_fig_name, dpi=240, bbox_inches=None):
 
 def create_dir(folder):
     if not os.path.exists(folder):
-        os.makedirs(folder,  exist_ok=True)
+        os.makedirs(folder, exist_ok=True)
 
     return folder
 
@@ -237,7 +246,6 @@ def remove(filename):
     if os.path.exists(filename):
         os.remove(filename)
     return
-
 
 
 # %% Axis

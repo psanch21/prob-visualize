@@ -105,7 +105,7 @@ def simple_plot(y, **args):
 
     if close != -1: plt.close(close)
 
-    return ax, f
+    return f, ax
 
 
 
@@ -179,7 +179,7 @@ def stem_plot(x, **args):
 
     if close != -1: plt.close(close)
 
-    return ax, f
+    return f, ax
 
 def mean_var_plot(save_dir, x, name='', xlabel='x', ylabel='y', close='all'):
     n_samples, dim = x.shape
