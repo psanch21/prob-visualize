@@ -59,7 +59,8 @@ def simple_plot(y, **args):
 
     close = args['close'] if 'close' in args else 'all'
     color = args['color'] if 'color' in args else 'black'
-    marker = args['marker'] if 'marker' in args else '-'
+    marker = args['marker'] if 'marker' in args else None
+    linestyle = args['linestyle'] if 'linestyle' in args else None
     label = args['label'] if 'label' in args else None
     figsize = args['figsize'] if 'figsize' in args else (15, 10)
 
@@ -76,9 +77,9 @@ def simple_plot(y, **args):
 
     ax.grid(True)
     if label is not None:
-        ax.plot(x, y, marker, color=color, label=label)
+        ax.plot(x, y, marker=marker, color=color, label=label, linestyle=linestyle)
     else:
-        ax.plot(x, y, marker, color=color)
+        ax.plot(x, y, marker=marker, color=color, linestyle=linestyle)
 
 
     if x_lim:

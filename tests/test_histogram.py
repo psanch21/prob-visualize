@@ -27,11 +27,11 @@ pvgh.multi_hist_plot(save_dir=save_dir,
 
 
 # %%
-f, ax = pvgh.hist_plot(x=y1, xlabel='derivate', ylabel='prob', density=True,
-                    logy=False, alpha=0.7, fontsize=32, close=-1, binwidth=0.01, x_lim=None, v_line=0.5)
+f, ax = pvgh.hist_plot(x=y1, density=True, histtype='stepfilled', alpha=0.1, linewidth=4)
 
 pva.save_fig(f, 'images/hist_test')
 
+# %%
 
 f, ax = pvgh.hist_plot(x=y1, xlabel='derivate', ylabel='prob',
                     logx=True, bins=10, alpha=0.7)

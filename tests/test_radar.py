@@ -5,7 +5,6 @@ import probvis.aux as pva
 import matplotlib.pyplot as plt
 pva.activate_latex_format()
 
-#%%
 save_dir = 'images'
 
 x_list = np.random.random(4)
@@ -15,7 +14,7 @@ label_list = ['adgdgfd', 'bdfgd', 'cdfgdg', 'ddfgdhgdfgh']
 # %%
 
 f, ax = pvgr.radar_plot(y_list=x_list, label_list=label_list, color=pva.get_color(),
-                        title='Radar Plot', fontsize_ticks=18)
+                        title='Radar Plot', fontsize_ticks={'y': 6, 'x': 12})
 
 pva.save_fig(f, f'{save_dir}/radar_plot')
 

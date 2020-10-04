@@ -6,6 +6,7 @@ import os
 import matplotlib.pyplot as plt
 
 pva.activate_latex_format()
+plt.close('all')
 
 save_dir = 'images'
 n = 1000
@@ -31,6 +32,9 @@ X = np.random.normal(loc=loc, scale=1)
 # heatmap_plot(save_dir=save_dir, matrix=X.T, y_label=r'Category', x_label=r'Doc', tight=True)
 
 # pvg.multi_simple_plot(save_dir=save_dir, x=x, y_list=[y1, y2], label_list=['y1', 'y2'], log_axis=['x', 'y'], x_tick_label=[1,4,5,6])
+f, ax = pvg.simple_plot(y=y1[:10], linestyle='dashed', marker='s', color=pva.get_color(2))
+pva.save_fig(f, os.path.join(save_dir, 'simple_plot'))
+# %%
 pvg.multi_simple_plot(save_dir=save_dir, x=x, y_list=[y1, y2], label_list=['y1', 'y2'],
                       x_ticks={'pos': [990.5, 100], 'label': ['a', 'b']}, rotate=True)
 
@@ -42,6 +46,19 @@ ax = plt.subplot(1, 1, 1)
 ax, _ = pvg.stem_plot(x=x2[::20], markerfmt='D', linefmt='-', color='red', ax=ax)
 ax, _ = pvg.stem_plot(x=x1[::20], markerfmt='o', linefmt='-', color='blue', ax=ax)
 pva.save_fig(f, os.path.join(save_dir, 'stem'))
+
+
+# %%
+import probvis.general.bar as pvgb
+
+color = [ pva.get_color(i) for i in range(3)]
+f, ax = pvgb.bar_plot(y=y1[:3],
+                      x_ticklabels=[],
+                      color=color,
+                      y_lim=[0,1],
+                      orient='v'
+                      )
+pva.save_fig(f, os.path.join(save_dir, 'bar_plot_v'))
 
 # %%
 import probvis.general.density_estimation as pvde

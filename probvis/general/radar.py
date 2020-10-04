@@ -48,6 +48,8 @@ def radar_plot(y_list, label_list, **args):
 
     ax.plot(angles, y_list, 'o-', linewidth=linewidth, color=color)
     ax.fill(angles, y_list, alpha=alpha, color=color)
+    ax.set_theta_offset(np.pi / 2)
+    ax.set_theta_direction(-1)
     ax.set_thetagrids(angles * 180 / np.pi, label_list)
 
     if x_lim:
@@ -63,6 +65,16 @@ def radar_plot(y_list, label_list, **args):
 
     if 'x' in fontsize_ticks: ax.tick_params(axis='x', which='major', labelsize=fontsize_ticks['x'])
     if 'y' in fontsize_ticks: ax.tick_params(axis='y', which='major', labelsize=fontsize_ticks['y'])
+    for label, angle in zip(ax.get_xticklabels(), angles):
+        if angle in (0, np.pi):
+            label.set_horizontalalignment('center')
+        elif 0 < angle < np.pi:
+            label.set_horizontalalignment('left')
+        else:
+            label.set_horizontalalignment('right')
+
+    ax.set_rlabel_position(180 / len(y_list))
+
     ax.grid(True)
     if close != -1: plt.close(close)
     if tight and f: f.tight_layout()

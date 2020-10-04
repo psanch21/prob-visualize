@@ -25,6 +25,8 @@ def hist_plot(x, **args):
     density = args['density'] if 'density' in args else False
     logy = args['logy'] if 'logy' in args else False
     logx = args['logx'] if 'logx' in args else False
+
+    histtype = args['histtype'] if 'histtype' in args else 'bar'
     bins = args['bins'] if 'bins' in args else min(30, int(np.sqrt(n_samples)))
 
     if 'bins_list' in args:
@@ -36,6 +38,7 @@ def hist_plot(x, **args):
     title = args['title'] if 'title' in args else ''
 
     fontsize = args['fontsize'] if 'fontsize' in args else 32
+    linewidth = args['linewidth'] if 'linewidth' in args else 0
     close = args['close'] if 'close' in args else 'all'
     rotate = args['rotate'] if 'rotate' in args else 0.0
     v_line = args['v_line'] if 'v_line' in args else None
@@ -54,10 +57,13 @@ def hist_plot(x, **args):
         bins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
 
 
-    if label is not None:
-        ax.hist(x, density=density, label=label, alpha=alpha, bins=bins, color=color)
-    else:
-        ax.hist(x, density=density, alpha=alpha, bins=bins, color=color)
+    ax.hist(x, density=density, label=label, alpha=alpha, bins=bins, color=color,
+                histtype=histtype, linewidth=linewidth)
+
+    if histtype != 'step' and linewidth>0:
+        ax.hist(x, density=density,  bins=bins, color=color,
+                histtype='step', linewidth=linewidth)
+
 
     if logy: ax.set_yscale('log')
     if logx: ax.set_xscale('log')
