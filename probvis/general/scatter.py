@@ -18,6 +18,7 @@ def scatter_plot(x_data, y_data,  **args):
     x_ticks = args['x_ticks'] if 'x_ticks' in args else None
     log_axis = args['log_axis'] if 'log_axis' in args else []
     fontsize = args['fontsize'] if 'fontsize' in args else 32
+    ticksize = args['ticksize'] if 'ticksize' in args else fontsize
     title = args['title'] if 'title' in args else ''
     title_stats = args['title_stats'] if 'title_stats' in args else False
 
@@ -51,6 +52,8 @@ def scatter_plot(x_data, y_data,  **args):
 
     if 'y' in log_axis: ax.set_yscale('log')
     if 'x' in log_axis: ax.set_xscale('log')
+
+    ax.tick_params(axis='both', which='major', labelsize=ticksize)
 
     ax.grid(True)
 
