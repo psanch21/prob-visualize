@@ -7,7 +7,7 @@ import probvis.images as pvi
 from probvis.aux import save_fig
 import statsmodels.api as sm
 
-
+from probvis.aux import Cte
 
 def scatter_plot(x_data, y_data,  **args):
     assert len(x_data) == len(y_data)
@@ -17,7 +17,7 @@ def scatter_plot(x_data, y_data,  **args):
     x_label = args['x_label'] if 'x_label' in args else 'x'
     x_ticks = args['x_ticks'] if 'x_ticks' in args else None
     log_axis = args['log_axis'] if 'log_axis' in args else []
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     ticksize = args['ticksize'] if 'ticksize' in args else fontsize
     title = args['title'] if 'title' in args else ''
     title_stats = args['title_stats'] if 'title_stats' in args else False
@@ -30,7 +30,7 @@ def scatter_plot(x_data, y_data,  **args):
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=figsize)
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
@@ -39,7 +39,7 @@ def scatter_plot(x_data, y_data,  **args):
 
     ax.set_ylabel(y_label, fontsize=fontsize)
     ax.set_xlabel(x_label, fontsize=fontsize)
-    ax.set_title(title)
+    ax.set_title(title, fontsize=fontsize)
 
     if title_stats:
         if 'y' in log_axis: y_data = np.log(y_data)
@@ -75,7 +75,7 @@ def scatter_plot_list(x_list, y_list, color_list, label_list,
 
 
 
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
 
     for x_data, y_data, color, label in zip(x_list, y_list, color_list, label_list):
@@ -116,7 +116,7 @@ def scatter_plot_cluster(x_data, y_data, label, label_id, color_list, marker_lis
     close = args['close'] if 'close' in args else 'all'
 
 
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
 
     for i in range(len(x_data)):
@@ -158,7 +158,7 @@ def scatter_plot_with_images(save_dir, x_data, y_data, images, name='', alpha=1.
     assert len(x_data) == len(y_data), 'x_data {} y_data {} images {}'.format(len(x_data), len(y_data), len(images))
     assert len(x_data) == len(images)
 
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
 
     ax.scatter(x_data, y_data, alpha=alpha)

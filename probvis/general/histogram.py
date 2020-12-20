@@ -5,7 +5,7 @@ import numpy as np
 import probvis.aux as pva
 
 from probvis.aux import save_fig
-
+from probvis.aux import Cte
 
 def hist_plot_i(x, label=None, color=None, density=False, logy=False, bins=None, alpha=1.0, ax=None):
     n_samples = len(x)
@@ -37,7 +37,7 @@ def hist_plot(x, **args):
     y_label = args['y_label'] if 'y_label' in args else ''
     title = args['title'] if 'title' in args else ''
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     linewidth = args['linewidth'] if 'linewidth' in args else 0
     close = args['close'] if 'close' in args else 'all'
     rotate = args['rotate'] if 'rotate' in args else 0.0
@@ -45,7 +45,7 @@ def hist_plot(x, **args):
     color = args['color'] if 'color' in args else pva.get_color(0)
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
@@ -77,8 +77,6 @@ def hist_plot(x, **args):
         plt.xticks(rotation=rotate)
     ax.tick_params(axis='both', which='major', labelsize=fontsize)
     ax.grid(True)
-    if label is not None:
-        ax.legend(fontsize=32, frameon=True)
     if v_line is not None:
         plt.axvline(x=v_line, color='k', linestyle='--')
     if close != -1: plt.close(close)
@@ -104,12 +102,12 @@ def multi_hist_plot(save_dir, data_list, label_list, **args):
     ylabel = args['ylabel'] if 'ylabel' in args else ''
     x_lim = args['x_lim'] if 'x_lim' in args else None
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     close = args['close'] if 'close' in args else 'all'
 
     name = '{}_'.format(args['name']) if 'name' in args else ''
 
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
 
     if binwidth is None:

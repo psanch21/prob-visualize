@@ -7,7 +7,7 @@ import probvis.images as pvi
 
 from probvis.aux import save_fig
 from wordcloud import WordCloud
-
+from probvis.aux import Cte
 def plot_probs_with_images(images, probs, save_dir, name, close='all'):
     fig_list = list()
     n_samples = images.shape[0]
@@ -16,7 +16,7 @@ def plot_probs_with_images(images, probs, save_dir, name, close='all'):
 
     n_batches = int(n_samples / 8)
     for j in range(n_batches):
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         i = 1
         k = 0
         for _ in range(8):
@@ -46,7 +46,7 @@ def plot_one_hot(one_hot, save_dir, name, close='all'):
 
     one_hot = [one_hot[i].index(True) for i in range(n_samples)]
 
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
     sns.countplot(x=one_hot, ax=ax)
 

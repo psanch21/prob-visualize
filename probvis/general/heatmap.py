@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from matplotlib.ticker import FixedFormatter
-
+from probvis.aux import Cte
 import numpy as np
 def heatmap_plot(matrix, **args):
     y_label = args['y_label'] if 'y_label' in args else ''
@@ -11,7 +11,7 @@ def heatmap_plot(matrix, **args):
     x_ticks = args['x_ticks'] if 'x_ticks' in args else None
     x_label = args['x_label'] if 'x_label' in args else ''
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     close = args['close'] if 'close' in args else 'all'
     title = args['title'] if 'title' in args else ''
     figsize = args['figsize'] if 'figsize' in args else (15, 10)
@@ -27,7 +27,7 @@ def heatmap_plot(matrix, **args):
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=figsize)
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
@@ -52,7 +52,7 @@ def heatmap_plot_cols(matrix, **args):
     x_ticks = args['x_ticks'] if 'x_ticks' in args else None
     x_label = args['x_label'] if 'x_label' in args else ''
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     close = args['close'] if 'close' in args else 'all'
     title = args['title'] if 'title' in args else ''
     figsize = args['figsize'] if 'figsize' in args else (15, 10)
@@ -74,7 +74,7 @@ def heatmap_plot_cols(matrix, **args):
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=figsize)
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']

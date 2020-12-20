@@ -7,7 +7,7 @@ import seaborn as sns
 
 from probvis.aux import save_fig
 
-
+from probvis.aux import Cte
 
 def radar_plot(y_list, label_list, **args):
 
@@ -21,7 +21,7 @@ def radar_plot(y_list, label_list, **args):
     alpha = args['alpha'] if 'alpha' in args else 0.25
     linewidth = args['linewidth'] if 'linewidth' in args else 2
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     fontsize_title =  args['fontsize_title'] if 'fontsize_title' in args else fontsize
     fontsize_ticks = args['fontsize_ticks'] if 'fontsize_ticks' in args else {'x': fontsize, 'y': fontsize}
 
@@ -35,7 +35,7 @@ def radar_plot(y_list, label_list, **args):
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1, polar=True)
     else:
         ax = args['ax']

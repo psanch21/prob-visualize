@@ -11,7 +11,7 @@ def plot_one_hot(one_hot, save_dir, name, close='all'):
 
     one_hot = [one_hot[i].index(True) for i in range(n_samples)]
 
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
     sns.countplot(x=one_hot, ax=ax)
 

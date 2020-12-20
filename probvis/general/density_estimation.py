@@ -10,7 +10,7 @@ from probvis.aux import save_fig
 
 import probvis.aux as pva
 
-
+from probvis.aux import Cte
 def kde_plot(x, **args):
 
     label = args['label'] if 'label' in args else None
@@ -28,14 +28,14 @@ def kde_plot(x, **args):
     fill = args['fill'] if 'fill' in args else True
 
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     close = args['close'] if 'close' in args else 'all'
     pad = args['pad'] if 'pad' in args else 0
     k_pos = args['k_pos'] if 'k_pos' in args else 0.01
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']

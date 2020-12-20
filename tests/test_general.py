@@ -32,7 +32,8 @@ X = np.random.normal(loc=loc, scale=1)
 # heatmap_plot(save_dir=save_dir, matrix=X.T, y_label=r'Category', x_label=r'Doc', tight=True)
 
 # pvg.multi_simple_plot(save_dir=save_dir, x=x, y_list=[y1, y2], label_list=['y1', 'y2'], log_axis=['x', 'y'], x_tick_label=[1,4,5,6])
-f, ax = pvg.simple_plot(y=y1[:10], linestyle='dashed', marker='s', color=pva.get_color(2))
+f, ax = pvg.simple_plot(y=y1[:10],  color=pva.get_color(2), linestyle=pva.get_linestyle(2), linewidth=None,
+                        x_label=r'Amazing plot')
 pva.save_fig(f, os.path.join(save_dir, 'simple_plot'))
 # %%
 pvg.multi_simple_plot(save_dir=save_dir, x=x, y_list=[y1, y2], label_list=['y1', 'y2'],
@@ -40,15 +41,17 @@ pvg.multi_simple_plot(save_dir=save_dir, x=x, y_list=[y1, y2], label_list=['y1',
 
 # %%
 
-f = plt.figure(figsize=(30, 10))
+f = plt.figure(figsize=(5,2))
 ax = plt.subplot(1, 1, 1)
 
-ax, _ = pvg.stem_plot(x=x2[::20], markerfmt='D', linefmt='-', color='red', ax=ax)
-ax, _ = pvg.stem_plot(x=x1[::20], markerfmt='o', linefmt='-', color='blue', ax=ax)
-pva.save_fig(f, os.path.join(save_dir, 'stem'))
+_, _ = pvg.stem_plot(x=x2[::20], markerfmt='D', linefmt='-', color='red', ax=ax)
+_, _ = pvg.stem_plot(x=x1[::20], markerfmt='o', linefmt='-', color='blue', ax=ax)
+
+pva.save_fig(f, os.path.join(save_dir, 'stem'), bbox_inches='tight')
 
 
-# %%
+
+  # %%
 import probvis.general.bar as pvgb
 
 color = [ pva.get_color(i) for i in range(3)]
@@ -56,7 +59,8 @@ f, ax = pvgb.bar_plot(y=y1[:3],
                       x_ticklabels=[],
                       color=color,
                       y_lim=[0,1],
-                      orient='v'
+                      orient='v',
+                      fontsize=None,
                       )
 pva.save_fig(f, os.path.join(save_dir, 'bar_plot_v'))
 
@@ -83,7 +87,6 @@ import probvis.general.heatmap as pvghm
 
 f, ax = pvghm.heatmap_plot_cols(matrix=X,
                                 tight=True, annot=True, fmt='.2f',
-                                figsize=(20, 8),
                                 y_ticks=['ejjjvgvg', 'e', 'h'],
                                 x_ticks=['aaaaa', 'bbb', 'cccc', 'ddddd'],
                                 rotation_x=-45,
@@ -91,10 +94,15 @@ f, ax = pvghm.heatmap_plot_cols(matrix=X,
 
 pva.save_fig(f, 'images/heatmap')
 
+# %% Legend
+
+pvg.legend_plot(label_list=['agasgagdag', 'b', 'c'], filename='images/legend', ncol=3)
+# pvg.legend_plot_2(label_list=['agasgagdag', 'b', 'c'], filename='images/legend_2')
+
 # %%
 from matplotlib.ticker import FixedFormatter
 
-f = plt.figure(figsize=(15, 10))
+f = plt.figure(figsize=Cte.FIGSIZE)
 ax = plt.subplot(1, 1, 1)
 
 b = np.argsort(np.argsort(X, axis=0), axis=0)
@@ -108,3 +116,5 @@ for i in range(X.shape[0]):
         ax.text(j, i, X[i, j], ha="center", va="center")
 pva.save_fig(f, 'images/heatmap_2')
 plt.close('all')
+
+

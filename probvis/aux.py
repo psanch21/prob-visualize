@@ -23,7 +23,12 @@ CMAPS = ['Greys', 'Purples', 'Blues', 'Greens', 'Oranges', 'Reds',
 #  list(mcolors.CSS4_COLORS.keys())
 
 MARKERS = ['o', 'D', 'x', 'v', 's', '^']
-LINESTYLES = ['solid', 'dashed', 'dotted', 'dashdot']
+LINESTYLES = ['solid',
+              (0, (5, 10)), # Loosely dashed
+              (0, (3, 5, 1, 5, 1, 5)), # 'dashdotdotted',
+              (0, (3, 10, 1, 10, 1, 10)), #'loosely dashdotdotted',
+              (0, (3, 10, 1, 10)), #'loosely dashdot',
+              'dashed', 'dotted', 'dashdot']
 
 COLORS = ['#1f77b4',
           '#ff7f0e',
@@ -35,6 +40,8 @@ COLORS = ['#1f77b4',
           '#7f7f7f',
           '#bcbd22',
           '#17becf']
+
+
 # COLORS = ['blue', 'orange', 'green', 'red', 'grey', 'purple', 'lime', 'indigo', 'orange', 'black']
 COLORS_FULL = ['darkblue',
                'darkgreen',
@@ -190,6 +197,8 @@ IS_LATEX = False
 IS_PDF = True
 
 
+class Cte:
+    FIGSIZE=(4,3)
 # %%
 
 
@@ -223,7 +232,7 @@ def get_linestyle(id=-1):
 
 def get_color_list(id_list):
     if isinstance(id_list, int):
-        return [get_color(i) for i in range(1, id_list + 1)]
+        return [get_color(i) for i in range(id_list)]
     elif isinstance(id_list, list):
         return [get_color(i) for i in id_list]
 
@@ -238,11 +247,13 @@ def activate_pdf_format(value):
 def activate_latex_format():
     plt.rc('text', usetex=True)
     plt.rc('font', family='serif')
+    plt.rc('xtick', labelsize='x-small')
+    plt.rc('ytick', labelsize='x-small')
 
 
 # %%
 
-def save_fig(f, complete_fig_name, dpi=240, bbox_inches=None):
+def save_fig(f, complete_fig_name, dpi=240, bbox_inches='tight'):
     print('Fig name: {}'.format(complete_fig_name))
     if IS_PDF:
         f.savefig('{}.pdf'.format(complete_fig_name), dpi=dpi, bbox_inches=bbox_inches)
@@ -286,3 +297,12 @@ def set_x_axis_style(ax, labels, label=None):
     ax.set_xticklabels(labels)
     ax.set_xlim(0.25, len(labels) + 0.75)
     if label: ax.set_xlabel(label)
+
+
+
+def export_legend(legend, filename):
+    fig = legend.figure
+    fig.canvas.draw()
+    bbox = legend.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+    filename+='.png'
+    fig.savefig(filename, dpi="figure", bbox_inches=bbox)

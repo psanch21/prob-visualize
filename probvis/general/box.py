@@ -6,10 +6,10 @@ import pandas as pd
 import seaborn as sns
 
 from probvis.aux import save_fig
-
+from probvis.aux import Cte
 
 def box2_plot(save_dir, df, x_col, y_col, label_order, x_tick_label, name='', xlabel='', ylabel='y', close='all'):
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
     ax.grid(True)
     ax = sns.boxplot(x=x_col, y=y_col, order=label_order, data=df, ax=ax)
@@ -37,12 +37,12 @@ def box_plot(x_list, y_list, **args):
 
     rotate = args['rotate'] if 'rotate' in args else 0
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     close = args['close'] if 'close' in args else 'all'
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
@@ -100,13 +100,13 @@ def box_plot_from_df(df, x, y,  **args):
 
     rotate = args['rotate'] if 'rotate' in args else 0
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     close = args['close'] if 'close' in args else 'all'
     grid = args['grid'] if 'grid' in args else True
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']

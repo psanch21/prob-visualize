@@ -4,16 +4,52 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from probvis.aux import save_fig, get_color
-
+import probvis.aux as pva
+from probvis.aux import Cte
 
 # %% Plot
+
+
+
+def legend_plot(label_list, filename, **args):
+    color_list = args['color_list'] if 'color_list' in args else pva.get_color_list(len(label_list))
+    frameon = args['frameon'] if 'frameon' in args else False
+    ncol = args['ncol'] if 'ncol' in args else 1
+    n = len(label_list)
+
+    fig = plt.figure()
+    fig_legend = plt.figure(figsize=(2, 1.25))
+    ax = fig.add_subplot(111)
+    bars = ax.bar(range(n), range(n), color=color_list, label=label_list)
+
+    fig_legend.legend(bars.get_children(), label_list, loc='center', frameon=frameon, ncol=ncol)
+    pva.save_fig(fig_legend, filename, bbox_inches='tight')
+
+def legend_plot_2(label_list, filename, **args):
+    plt.close('all')
+    plt.figure()
+    color_list = args['color_list'] if 'color_list' in args else pva.get_color_list(len(label_list))
+    frameon = args['frameon'] if 'frameon' in args else False
+    ncol = args['ncol'] if 'ncol' in args else 1
+    n = len(label_list)
+
+    f_mc= lambda m, c: plt.plot([], [], marker=m, color=c, ls="none")[0]
+
+    handles = [f_mc("s", color_list[i]) for i in range(len(label_list))]
+
+
+    legend = plt.legend(handles, label_list, loc=3, framealpha=1, frameon=frameon, ncol=ncol, fontsize=20)
+
+    pva.export_legend(legend, filename=filename)
+    plt.close()
 
 def multi_simple_plot(save_dir, y_list, label_list, **args):
     y_label = args['y_label'] if 'y_label' in args else 'y'
     x_label = args['x_label'] if 'x_label' in args else 'x'
     name = '{}_'.format(args['name']) if 'name' in args else ''
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    linewidth = args['linewidth'] if 'linewidth' in args else 2.0
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     log_axis = args['log_axis'] if 'log_axis' in args else []
     title = args['title'] if 'title' in args else ''
     x = args['x'] if 'x' in args else list(range(len(y_list[0])))
@@ -23,11 +59,14 @@ def multi_simple_plot(save_dir, y_list, label_list, **args):
 
 
     close = args['close'] if 'close' in args else 'all'
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
 
     for i, y in enumerate(y_list):
-        simple_plot(save_dir, x=x, y=y, label=label_list[i], y_label=y_label, x_label=x_label, color= get_color(i+1),log_axis=log_axis, close=-1, ax=ax)
+        simple_plot(save_dir, x=x, y=y, label=label_list[i],
+                    y_label=y_label, x_label=x_label,
+                    linewidth=linewidth,
+                    color= get_color(i+1),log_axis=log_axis, close=-1, ax=ax)
 
     ax.legend(fontsize=fontsize, frameon=True)
     ax.set_title(title, fontsize=fontsize)
@@ -48,7 +87,7 @@ def simple_plot(y, **args):
     y_label = args['y_label'] if 'y_label' in args else ''
     x_label = args['x_label'] if 'x_label' in args else ''
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     y_lim = args['y_lim'] if 'y_lim' in args else None
     x_lim = args['x_lim'] if 'x_lim' in args else None
 
@@ -56,6 +95,7 @@ def simple_plot(y, **args):
     log_axis = args['log_axis'] if 'log_axis' in args else []
     title = args['title'] if 'title' in args else ''
 
+    linewidth = args['linewidth'] if 'linewidth' in args else None
 
     close = args['close'] if 'close' in args else 'all'
     color = args['color'] if 'color' in args else 'black'
@@ -70,16 +110,14 @@ def simple_plot(y, **args):
     x_tick_label = args['x_tick_label'] if 'x_tick_label' in args else None
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=figsize)
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
 
     ax.grid(True)
-    if label is not None:
-        ax.plot(x, y, marker=marker, color=color, label=label, linestyle=linestyle)
-    else:
-        ax.plot(x, y, marker=marker, color=color, linestyle=linestyle)
+    ax.plot(x, y, marker=marker, label=label,color=color, linestyle=linestyle, linewidth=linewidth)
+
 
 
     if x_lim:
@@ -94,7 +132,7 @@ def simple_plot(y, **args):
     if 'x' in log_axis: ax.set_xscale('log')
 
     ax.tick_params(axis='both', which='major', labelsize=fontsize)
-    ax.set_title(title)
+    ax.set_title(title, fontsize=fontsize)
 
     if x_tick_label:
         ax.set_xticklabels(x_tick_label, fontsize=fontsize)
@@ -115,7 +153,7 @@ def stem_plot(x, **args):
     y_label = args['y_label'] if 'y_label' in args else 'y'
     x_label = args['x_label'] if 'x_label' in args else 'x'
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     y_lim = args['y_lim'] if 'y_lim' in args else None
     log_axis = args['log_axis'] if 'log_axis' in args else []
     title = args['title'] if 'title' in args else ''
@@ -130,7 +168,6 @@ def stem_plot(x, **args):
     ref = args['ref'] if 'ref' in args else True
     label = args['label'] if 'label' in args else None
     x_lim = args['x_lim'] if 'x_lim' in args else None
-    figsize = args['figsize'] if 'figsize' in args else (15, 10)
     markersize = args['markersize'] if 'markersize' in args else None
 
 
@@ -139,7 +176,7 @@ def stem_plot(x, **args):
     x_tick_label = args['x_tick_label'] if 'x_tick_label' in args else None
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=figsize)
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
@@ -170,8 +207,8 @@ def stem_plot(x, **args):
     if 'y' in log_axis: ax.set_yscale('log')
     if 'x' in log_axis: ax.set_xscale('log')
 
-    ax.tick_params(axis='both', which='major', labelsize=fontsize)
-    ax.set_title(title)
+    # ax.tick_params(axis='both', which='major', labelsize=fontsize)
+    ax.set_title(title, fontsize=fontsize)
 
     if x_tick_label:
         ax.set_xticklabels(x_tick_label, fontsize=fontsize)
@@ -187,7 +224,7 @@ def mean_var_plot(save_dir, x, name='', xlabel='x', ylabel='y', close='all'):
     mean = np.mean(x, axis=0)
     var = np.var(x, axis=0)
     x_range = list(range(dim))
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
 
     ax.plot(x_range, mean, 'o', label=r'$\mu$', color='black')
@@ -215,7 +252,7 @@ def var_plot(save_dir, x, name='', xlabel='x', close='all'):
     n_samples, dim = x.shape
     var = np.var(x, axis=0)
     x_range = list(range(dim))
-    f = plt.figure(figsize=(15, 10))
+    f = plt.figure(figsize=Cte.FIGSIZE)
     ax = plt.subplot(1, 1, 1)
 
     ax.plot(x_range, var, 'o', color='green')

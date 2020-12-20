@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from probvis.aux import save_fig
+from probvis.aux import Cte
 
 import numpy as np
 
@@ -13,7 +14,7 @@ def bar_plot(y, **args):
     x = args['x'] if 'x' in args else np.arange(0, len(y))
     title = args['title'] if 'title' in args else ''
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     color = args['color'] if 'color' in args else None
     y_lim = args['y_lim'] if 'y_lim' in args else None
     x_ticklabels = args['x_ticklabels'] if 'x_ticklabels' in args else x
@@ -27,7 +28,7 @@ def bar_plot(y, **args):
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']

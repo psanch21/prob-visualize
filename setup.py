@@ -8,7 +8,7 @@ with open('environments/requirements.txt') as f:
 
 setup(
     name='probvis',
-    version='1.0.0',
+    version='1.1.0',
     #packages=['probvis', 'probvis.distributions', 'probvis.graphical_models'],
     packages=find_packages(exclude=['images', 'tests', 'environments']),
     install_requires=required,

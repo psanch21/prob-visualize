@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from probvis.aux import save_fig
 import pandas as pd
 
-
+from probvis.aux import Cte
 
 
 def violin_plot(x_list, y_list, **args):
@@ -22,12 +22,12 @@ def violin_plot(x_list, y_list, **args):
     ylabel = args['y_label'] if 'y_label' in args else ''
     title = args['title'] if 'title' in args else ''
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     close = args['close'] if 'close' in args else 'all'
 
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=(15, 10))
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
@@ -82,7 +82,7 @@ def violin2_plot(x_list, y_list, **args):
     quartiles = args['quartiles'] if 'quartiles' in args else []
 
 
-    fontsize = args['fontsize'] if 'fontsize' in args else 32
+    fontsize = args['fontsize'] if 'fontsize' in args else None
     figsize = args['figsize'] if 'figsize' in args else (15,10)
     color_list = args['color_list'] if 'color_list' in args else None
     close = args['close'] if 'close' in args else 'all'
@@ -90,7 +90,7 @@ def violin2_plot(x_list, y_list, **args):
     name = '{}_'.format(args['name']) if 'name' in args else ''
     f = None
     if 'ax' not in args:
-        f = plt.figure(figsize=figsize)
+        f = plt.figure(figsize=Cte.FIGSIZE)
         ax = plt.subplot(1, 1, 1)
     else:
         ax = args['ax']
